@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.background {
+    width: 250px;
+    height: 690px;
+    border: 0;
+    padding: 10px;
+
+}
+
+.rectangle {
+}
+
+.container {
+    position: relative;
+}
+
+.item {
+    cursor: grab;
+    /*position: absolute;*/
+
+}
+.newItem {
+    cursor: grab;
+    inset: auto;
+}
+/*.item:hover {*/
+/*    background-color: transparent;*/
+/*    z-index: 50;*/
+/*}*/
+
+#gallery {
+
+    white-space: normal;
+    overflow: scroll;
+
+}
+
+#drop-panel {
+    fill: gray;
+    opacity: 0.8;
+    stroke: black;
+    stroke-width: 3;
+}
+.button_done {
+    background-color: #696969;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 1;
+    width: 100px;
+    height: 50px;
+    transition: 0.3s;
+    /*display: inline-block;*/
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    right: 60px;
+    top: 650px
+}
+
+
+/*.button_done {*/
+/*  background-color: #696969;*/
+/*  border: none;*/
+/*  color: white;*/
+/*  padding: 16px 32px;*/
+/*  text-align: center;*/
+/*  font-size: 16px;*/
+/*  margin: 4px 2px;*/
+/*  opacity: 1;*/
+/*  transition: 0.3s;*/
+/*  display: inline-block;*/
+/*  text-decoration: none;*/
+/*  cursor: pointer;*/
+/*  position: relative;*/
+/*  left: 1330px;*/
+/*  top: 620px*/
+/*}*/
+/*.button_restart {*/
+/*  background-color: #696969;*/
+/*  border: none;*/
+/*  color: white;*/
+/*  padding: 16px 32px;*/
+/*  text-align: center;*/
+/*  font-size: 16px;*/
+/*  margin: 4px 2px;*/
+/*  opacity: 1;*/
+/*  transition: 0.3s;*/
+/*  display: inline-block;*/
+/*  text-decoration: none;*/
+/*  cursor: pointer;*/
+/*  position: relative;*/
+/*  right: 70px;*/
+/*  top: 100px*/
+/*}*/
+
+/*.button_done:hover {opacity: 0.7}*/
+/*.button_restart:hover {opacity: 0.7}*/
+
+/** { margin: 0; padding: 0; }*/
+
+/*#dragDrop {*/
+/*  width: 1000px;*/
+/*  margin: 20px auto 0;*/
+/*  position: relative;*/
+/*}*/
+
+/*.dd-vc {*/
+/*  position: relative;*/
+/*  top: 50%;*/
+/*  transform: translateY(-50%);*/
+/*}*/
+
+/*.dd-transition {*/
+/*  transition: all 0.3s ease;*/
+/*}*/
+/*.dd-shadow {*/
+/*  box-shadow: 0 0 3px 1px rgba(0,0,0,0.3);*/
+/*}*/
+
+/*.dd-slot {*/
+/*  float: left;*/
+/*  outline: 2px dashed rgba(54, 86, 132, 0.75);*/
+/*  outline-offset: -15px;*/
+/*  position: relative;*/
+/*}*/
+/*.dd-slot-num {*/
+/*  text-align: center;*/
+/*  width: 100%;*/
+/*  position: absolute;*/
+/*  font-size: 40px;*/
+/*  color: rgba(0,0,0,0.1);*/
+/*}*/
+
+/*.dd-item {*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  box-sizing: border-box;*/
+/*  padding: 10px;*/
+/*  cursor: pointer;*/
+/*}*/
+/*.dd-item.dd-disabled {*/
+/*  pointer-events: none;*/
+/*  opacity: 0;*/
+/*}*/
+/*.dd-item.dd-selected {*/
+/*  z-index: 20;*/
+/*}*/
+
+/*.dd-item-inner {*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: cover;*/
+/*  background-position: center;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  position: relative;*/
+/*}*/
+/*.dd-item-panel {*/
+/*  width: 80%;*/
+/*  height: 35px;*/
+/*  background: #fff;*/
+/*  position: absolute;*/
+/*  left: 10%;*/
+/*  bottom: -15px;*/
+/*  z-index: 5;*/
+/*}*/
+/*.dd-item-title {*/
+/*  font-size: 15px;*/
+/*  color: #365684;*/
+/*  text-align: center;*/
+/*  line-height: 35px;*/
+/*}*/
+
+

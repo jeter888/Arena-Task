@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- Also include jQueryUI -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <title>Arena Task 2 WITH HTML</title>
+  </head>
+  <body>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.item').draggable({
+        helper: 'clone',
+        start: function(){
+          $(this).hide();
+          $('.item').css('cursor', 'grabbing');
+        },
+        stop: function() {
+          $('.item').css('cursor', 'grab');
+        }
+      });
+
+      $("body").droppable({
+        accept: '.item',
+        drop: function(event, ui){
+          $('.item').css('cursor', 'grab');
+          var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
+          new_item.draggable({
+            start: function() {
+              $(ui.helper).hide();
+              $('.newItem').css('cursor', 'grabbing');
+            },
+            stop: function() {
+              $('.newItem').css('cursor', 'grab');
+            }
+          });
+          $(this).append(new_item);
+        }
+      });
+    } );
+
+  </script>
+
+  <div class="background">
+    <div id="gallery" style="width: 250px; height: 690px"></div>
+  </div>
+
+
+    <svg class="rectangle" width="1150px" height="700px">
+    <rect id="drop-panel" width="1050px" height="550px" transform='translate(40 100)'> </rect>
+  </svg>
+
+  <button class="button_done">Done</button>
+
+
+  </body>
+<script src="scripts/d3.v4.js"></script>
+<script src = "arena.js"></script>
+
+</html>
+
+
+
