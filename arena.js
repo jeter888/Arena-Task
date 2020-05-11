@@ -1,4 +1,5 @@
- var arena = d3.select(".rectangle");
+function drawArena() {
+    var arena = d3.select(".rectangle");
 
     var preview = arena.append("rect")
         .attr("x", 400)
@@ -47,11 +48,12 @@
     var _doc = window.document;
     var dict = {};
 
- // console.log(document.getElementById("gallery").style.height);
- //
- //    var xBounds = document.getElementById("gallery").style.width,
- //        yBounds = document.getElementById("gallery").style.height;
+    // console.log(document.getElementById("gallery").style.height);
+    //
+    //    var xBounds = document.getElementById("gallery").style.width,
+    //        yBounds = document.getElementById("gallery").style.height;
     var count = 0;
+
     function drawImages() {
         var i = 1;
         uniqueImg = new Set();
@@ -68,6 +70,7 @@
             //orig_ele.push([x, y]);
         } while (i <= 41);
     }
+
     drawImages();
 
     function redrawImages([x, y], uniqueImg, img) {
@@ -91,20 +94,19 @@
 
     function appendDraggableImage(url) {    //#FIXME: retrieve position relative to rectangle rather than screen
 
-            item = document.createElement("img");
-            item.src = url;
-            item.setAttribute("class", "item");
-            item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px; padding-bottom: 5%;");
+        item = document.createElement("img");
+        item.src = url;
+        item.setAttribute("class", "item");
+        item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px; padding-bottom: 5%;");
 
 
+        document.getElementById('gallery').appendChild(item);
+        cloned_item = document.getElementsByClassName("newItem");
+        item.addEventListener("mouseover", function () {
+            showPreview(url);
+        });
 
-            document.getElementById('gallery').appendChild(item);
-            cloned_item = document.getElementsByClassName("newItem");
-            item.addEventListener("mouseover", function() {
-                showPreview(url);
-            });
-
-            // console.log(item.getBoundingClientRect())
+        // console.log(item.getBoundingClientRect())
 
 
         function showPreview(url) {
@@ -122,6 +124,7 @@
         function removePreview() {
             d3.select('image.preview').remove();
         }
+
         d3.select('.button_done')
             .on('mousedown', doneButton);
 
@@ -131,7 +134,7 @@
 
         function getFinalPositions() {
             var newItems = $('.newItem');
-            for (var i=0; i <newItems.length; i++) {
+            for (var i = 0; i < newItems.length; i++) {
                 //this if-statement updates position of images that are moved again
                 if (newItems[i].src in dict) {
                     console.log("true");
@@ -141,11 +144,13 @@
                 else {
                     dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
                 }
-            }console.log(dict);
+            }
+            console.log(dict);
             writeToDoc(dict);
         }
 
-        function writeToDoc(dict) {}
+        function writeToDoc(dict) {
+        }
 
     }
 
@@ -156,17 +161,14 @@
         console.log("dragging");
         d3.select(this.parentNode)
             .raise();
-            // .attr("width", image.size * 2 / 3)
-            // .attr("height", image.size * 2 / 3)
+        // .attr("width", image.size * 2 / 3)
+        // .attr("height", image.size * 2 / 3)
         alreadyMoved = true;
         d.moveCount++;
 
     }
 
     var final_positions = [];
-
-
-
 
 
     d3.select('.button_restart')
@@ -181,5 +183,6 @@
         //#FIXME: reset positions of all pics
         //#FIXME: clear positions Set
     }
+}
 
 
