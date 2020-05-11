@@ -1,14 +1,29 @@
-function WriteToFile(passForm) {
+let appendSubjectToFile = () => {
 
-    var fso = CreateObject("Scripting.FileSystemObject");
-    var s   = fso.CreateTextFile("SONA data/filename.txt", true);
+    // Get the SONA ID text input from the form
+    const name = document.getElementById('txtID');
 
-    var sonaID = document.getElementById('txtID');
-    // var lastName  = document.getElementById('lastName');
+    // This variable stores all the data.
+    let data =
+        '\r SONA ID: ' + name.value + ' \r\n ';
 
-    s.writeline("First Name :" + sonaID);
-    // s.writeline("Last Name :" + lastName);
 
-    s.writeline("-----------------------------");
-    s.Close();
+
+    // Convert the text to BLOB.
+    const textToBLOB = new Blob([data], { type: 'text/plain' });
+    const sFileName = 'formData.txt';	   // The file to save the data.
+
+    let newLink = document.createElement("a");
+    newLink.download = sFileName;
+
+    if (window.webkitURL != null) {
+        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    }
+    else {
+        newLink.href = window.URL.createObjectURL(textToBLOB);
+        newLink.style.display = "none";
+        document.body.appendChild(newLink);
+    }
+
+    newLink.click();
 }
