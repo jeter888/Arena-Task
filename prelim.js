@@ -26,4 +26,7 @@ let appendSubjectToFile = () => {
     }
 
     newLink.click();
+    window.location.assign("index.html");
+    // drawArena();
+
 }
