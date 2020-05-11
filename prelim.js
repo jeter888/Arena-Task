@@ -11,9 +11,12 @@ let appendSubjectToFile = () => {
 
     // Convert the text to BLOB.
     const textToBLOB = new Blob([data], { type: 'text/plain' });
-    const sFileName = 'formData.txt';	   // The file to save the data.
+
+    //set the filename equal to the SONA ID (can change later)
+    const sFileName = name.value;	   // The file to save the data.
 
     let newLink = document.createElement("a");
+    newLink.setAttribute("src", "SONA data/");
     newLink.download = sFileName;
 
     if (window.webkitURL != null) {
@@ -26,6 +29,8 @@ let appendSubjectToFile = () => {
     }
 
     newLink.click();
+
+    //after sona data saves, redirect to experiment page
     window.location.assign("index.html");
     // drawArena();
 
