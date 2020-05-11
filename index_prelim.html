@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Save form Data in a Text File using JavaScript</title>
     <style>
         * {
@@ -34,25 +35,9 @@
     <!--Add few elements to the form-->
 
     <div>
-        <input type="text" id="txtName" placeholder="Please enter your SONA ID" />
+        <input type="text" id="txtID" placeholder="Please enter your SONA ID" />
     </div>
-    <div>
-        <input type="text" id="txtAge" placeholder="Enter your age" />
-    </div>
-    <div>
-        <input type="text" id="txtEmail" placeholder="Enter your email address" />
-    </div>
-    <div>
-        <select id="selCountry">
-            <option selected value="">-- Choose the country --</option>
-            <option value="India">India</option>
-            <option value="Japan">Japan</option>
-            <option value="USA">USA</option>
-        </select>
-    </div>
-    <div>
-        <textarea id="msg" name="msg" placeholder="Write some message ..." style="height:100px"></textarea>
-    </div>
+
     <div>
         <input type="button" id="bt" value="Submit" onclick="saveFile()" />
     </div>
@@ -63,19 +48,19 @@
     let saveFile = () => {
 
         // Get the data from each element on the form.
-        const name = document.getElementById('txtName');
-        const age = document.getElementById('txtAge');
-        const email = document.getElementById('txtEmail');
-        const country = document.getElementById('selCountry');
-        const msg = document.getElementById('msg');
+        const name = document.getElementById('txtID');
+        // const age = document.getElementById('txtAge');
+        // const email = document.getElementById('txtEmail');
+        // const country = document.getElementById('selCountry');
+        // const msg = document.getElementById('msg');
 
         // This variable stores all the data.
         let data =
-            '\r Name: ' + name.value + ' \r\n ' +
-            'Age: ' +age.value + ' \r\n ' +
-            'Email: ' + email.value + ' \r\n ' +
-            'Country: ' + country.value + ' \r\n ' +
-            'Message: ' + msg.value;
+            '\r SONA ID: ' + name.value + ' \r\n ';
+            // 'Age: ' +age.value + ' \r\n ' +
+            // 'Email: ' + email.value + ' \r\n ' +
+            // 'Country: ' + country.value + ' \r\n ' +
+            // 'Message: ' + msg.value;
 
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
