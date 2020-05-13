@@ -29,6 +29,19 @@ body {
     /*position: absolute;*/
 
 }
+
+#myTooltip {
+    position: absolute;
+    padding: 8px;
+    overflow-x: visible;
+    overflow-y: visible;
+    /*background-color: black;*/
+    color: white;
+    opacity: 90%;
+    width: 128px;
+    height: 96px;
+}
+
 .newItem {
     cursor: grab;
     inset: auto;
@@ -69,6 +82,8 @@ body {
     right: 60px;
     top: 650px
 }
+
+
 
 
 /*.button_done {*/
