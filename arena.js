@@ -1,16 +1,6 @@
 function drawArena() {
     var arena = d3.select(".rectangle");
 
-    var preview = arena.append("rect")
-        .attr("x", 400)
-        .attr("y", 250)
-        .attr("width", 1024 / 3)
-        .attr("height", 768 / 3)
-        .attr("fill", 'gray')
-        .attr("opacity", 0.8)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1);
-
     arena.append("text")
         .text("Please arrange the scenes inside the large rectangle according to their similarity")
         .attr("x", 350)
@@ -97,33 +87,25 @@ function drawArena() {
         item = document.createElement("img");
         item.src = url;
         item.setAttribute("class", "item");
-        item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px; padding-bottom: 5%;");
+        item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px;");
 
 
         document.getElementById('gallery').appendChild(item);
         cloned_item = document.getElementsByClassName("newItem");
-        item.addEventListener("mouseover", function () {
-            showPreview(url);
-        });
 
-        // console.log(item.getBoundingClientRect())
+        d3.selectAll('.item')
+            .on("mouseover", function(d){
+                var tooltip = d3.select('#myTooltip');
+                tooltip.style('display', 'block');
+                tooltip.style('left', d3.event.pageX + "px");
+                tooltip.style('top', d3.event.pageY + "px");
+                tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+            })
+            .on("mouseleave", function(d){
+                var tooltip = d3.select('#myTooltip');
+                tooltip.style('display', 'none');
+            })
 
-
-        function showPreview(url) {
-            // console.log(url)
-            //this.src = "data/arena_scene_examples/target_racetrack.png";
-            // arena.append('image')
-            //     .attr("xlink:href", url)
-            //     .attr("class", "preview")
-            //     .attr("height", 1024 / 2.3)
-            //     .attr("width", 768 / 2.3)
-            //     .attr("x", 453)
-            //     .attr("y", 155);
-        }
-
-        function removePreview() {
-            d3.select('image.preview').remove();
-        }
 
         d3.select('.button_done')
             .on('mousedown', doneButton);
@@ -137,7 +119,6 @@ function drawArena() {
             for (var i = 0; i < newItems.length; i++) {
                 //this if-statement updates position of images that are moved again
                 if (newItems[i].src in dict) {
-                    console.log("true");
                     dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
                 }
                 //else, add a new image to the arena

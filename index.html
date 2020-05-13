@@ -11,7 +11,6 @@
     <title>Arena Task 2 WITH HTML</title>
   </head>
   <body>
-
   <script type="text/javascript">
     $(function() {
       $('.item').draggable({
@@ -40,11 +39,27 @@
             }
           });
           $(this).append(new_item);
+
+          d3.selectAll('.newItem')
+                  .on("mouseover", function(d){
+                    var tooltip = d3.select('#myTooltip');
+                    tooltip.style('display', 'block');
+                    tooltip.style('left', d3.event.pageX + "px");
+                    tooltip.style('top', d3.event.pageY + "px");
+                    tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                    tooltip.raise();
+                  })
+                  .on("mouseleave", function(d){
+                    var tooltip = d3.select('#myTooltip');
+                    tooltip.style('display', 'none');
+                  })
+
         }
       });
     } );
 
   </script>
+  <div id = 'myTooltip'> </div>
 
   <div class="background">
     <div id="gallery" style="width: 250px; height: 690px"></div>
@@ -57,11 +72,10 @@
 
   <button class="button_done">Done</button>
 
+
   </body>
 <script src="scripts/d3.v4.js"></script>
 <script src = "arena.js" onload="drawArena()"></script>
-
-
 
 </html>
 
