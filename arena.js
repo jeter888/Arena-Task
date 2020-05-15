@@ -3,8 +3,8 @@ function drawArena() {
 
     arena.append("text")
         .text("Please arrange the scenes inside the large rectangle according to their similarity")
-        .attr("x", 350)
-        .attr("y", 50)
+        .attr("x", 340)
+        .attr("y", 30)
         .attr("font-size", 20);
 
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',

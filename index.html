@@ -53,27 +53,34 @@
                     var tooltip = d3.select('#myTooltip');
                     tooltip.style('display', 'none');
                   })
-
         }
       });
     } );
 
   </script>
+
   <div id = 'myTooltip'> </div>
 
+  <div id="main">
   <div class="background">
     <div id="gallery" style="width: 250px; height: 690px"></div>
   </div>
 
-
-    <svg class="rectangle" width="1150px" height="700px">
-    <rect id="drop-panel" width="1050px" height="550px" transform='translate(40 100)'> </rect>
+    <svg class="rectangle" width="1300px" height="700px">
+    <rect id="drop-panel" width="1200px" height="620px" transform='translate(20 50)'> </rect>
   </svg>
+  </div>
 
-  <button class="button_done">Done</button>
-
+  <div class="buttons">
+    <button class="button_reset">Reset</button>
+    <div class="center">
+      <h1> Toggle Thumbnail Previews </h1>
+      <input type="checkbox" name=""></div>
+  <button class="button_done" >Done</button>
+  </div>
 
   </body>
+
 <script src="scripts/d3.v4.js"></script>
 <script src = "arena.js" onload="drawArena()"></script>
 
