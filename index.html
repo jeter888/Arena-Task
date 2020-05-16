@@ -39,15 +39,16 @@
             }
           });
           $(this).append(new_item);
-
           d3.selectAll('.newItem')
                   .on("mouseover", function(d){
-                    var tooltip = d3.select('#myTooltip');
-                    tooltip.style('display', 'block');
-                    tooltip.style('left', d3.event.pageX + "px");
-                    tooltip.style('top', d3.event.pageY + "px");
-                    tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
-                    tooltip.raise();
+                    if (isToggleOn()) {
+                      var tooltip = d3.select('#myTooltip');
+                      tooltip.style('display', 'block');
+                      tooltip.style('left', d3.event.pageX + "px");
+                      tooltip.style('top', d3.event.pageY + "px");
+                      tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                      tooltip.raise();
+                    }
                   })
                   .on("mouseleave", function(d){
                     var tooltip = d3.select('#myTooltip');

@@ -34,6 +34,9 @@ function toggleButton(element) {
         bg[0].classList.remove("uncheckedBG");
     }
 }
+function isToggleOn(){
+    return document.getElementsByClassName("slider")[0].getAttribute("aria-pressed") === "true";
+}
 
 function drawArena() {
 
@@ -73,15 +76,7 @@ function drawArena() {
     var x = 0, y = -5;
     var uniqueImg;
     var orig_ele = [];
-    var _doc = window.document;
     var dict = {};
-
-    // console.log(document.getElementById("gallery").style.height);
-    //
-    //    var xBounds = document.getElementById("gallery").style.width,
-    //        yBounds = document.getElementById("gallery").style.height;
-    var count = 0;
-
     function drawImages() {
         var i = 1;
         uniqueImg = new Set();
@@ -131,12 +126,13 @@ function drawArena() {
 
         d3.selectAll('.item')
             .on("mouseover", function(d){
-
-                var tooltip = d3.select('#myTooltip');
-                tooltip.style('display', 'block');
-                tooltip.style('left', d3.event.pageX + "px");
-                tooltip.style('top', d3.event.pageY + "px");
-                tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                if (isToggleOn()) {
+                    var tooltip = d3.select('#myTooltip');
+                    tooltip.style('display', 'block');
+                    tooltip.style('left', d3.event.pageX + "px");
+                    tooltip.style('top', d3.event.pageY + "px");
+                    tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                }
             })
             .on("mouseleave", function(d){
                 var tooltip = d3.select('#myTooltip');
