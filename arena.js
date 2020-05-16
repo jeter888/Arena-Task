@@ -1,9 +1,47 @@
+function loadToggleBtn (element){
+    element.setAttribute("aria-pressed", toggleButton(element))
+}
+function handleBtnClick(event){
+    toggleButton(event.target);
+}
+function handleBtnKeyDown(event){
+    // Check to see if space or enter were pressed
+    if (event.key === " " || event.key === "Enter" || event.key === "Spacebar") { // "Spacebar" for IE11 support
+        // Prevent the default action to stop scrolling when space is pressed
+        event.preventDefault();
+        toggleButton(event.target);
+    }
+}
+
+var bg= document.getElementsByClassName("slider");
+var box = document.getElementById("box");
+function toggleButton(element) {
+    // Check to see if the button is pressed
+    var pressed = (element.getAttribute("aria-pressed") === "true");
+
+    // Change aria-pressed to the opposite state
+    element.setAttribute("aria-pressed", !pressed);
+    // toggle the play state of the audio file
+
+    if(pressed) {
+        console.log("previews off");
+        box.classList.add("checked");
+        bg[0].classList.add("uncheckedBG");
+
+    } else {
+        console.log("previews on");
+        box.classList.remove("checked");
+        bg[0].classList.remove("uncheckedBG");
+    }
+}
+
 function drawArena() {
+
     var arena = d3.select(".rectangle");
 
     arena.append("text")
-        .text("Please arrange the scenes inside the large rectangle according to their similarity")
-        .attr("x", 340)
+        .text("Please arrange the scenes inside the rectangle according to their similarity")
+        .attr("x", 320)
         .attr("y", 30)
         .attr("font-size", 20);
 
@@ -58,7 +96,7 @@ function drawArena() {
             appendDraggableImage(img);
             i++;
             //orig_ele.push([x, y]);
-        } while (i <= 41);
+        } while (i <= 100);
     }
 
     drawImages();
@@ -79,8 +117,6 @@ function drawArena() {
 
     var item;
     var cloned_item;
-    var dropzone;
-
 
     function appendDraggableImage(url) {    //#FIXME: retrieve position relative to rectangle rather than screen
 
@@ -95,6 +131,7 @@ function drawArena() {
 
         d3.selectAll('.item')
             .on("mouseover", function(d){
+
                 var tooltip = d3.select('#myTooltip');
                 tooltip.style('display', 'block');
                 tooltip.style('left', d3.event.pageX + "px");
@@ -104,7 +141,7 @@ function drawArena() {
             .on("mouseleave", function(d){
                 var tooltip = d3.select('#myTooltip');
                 tooltip.style('display', 'none');
-            })
+            });
 
 
         d3.select('.button_done')
@@ -132,20 +169,6 @@ function drawArena() {
 
         function writeToDoc(dict) {
         }
-
-    }
-
-
-    var alreadyMoved = false;
-
-    function dragStart(d) {
-        console.log("dragging");
-        d3.select(this.parentNode)
-            .raise();
-        // .attr("width", image.size * 2 / 3)
-        // .attr("height", image.size * 2 / 3)
-        alreadyMoved = true;
-        d.moveCount++;
 
     }
 

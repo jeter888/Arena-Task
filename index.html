@@ -73,9 +73,11 @@
 
   <div class="buttons">
     <button class="button_reset">Reset</button>
-    <div class="center">
-      <h1> Toggle Thumbnail Previews </h1>
-      <input type="checkbox" name=""></div>
+    <label class="switch" >
+      <h2> Toggle Thumbnail Previews </h2>
+      <input type="checkbox" id="box">
+      <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)" onload="loadToggleBtn(event)"></span>
+    </label>
   <button class="button_done" >Done</button>
   </div>
 
