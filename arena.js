@@ -1,6 +1,5 @@
-function loadToggleBtn (element){
-    element.setAttribute("aria-pressed", toggleButton(element))
-}
+var bg= document.getElementsByClassName("slider");
+var box = document.getElementById("box");
 function handleBtnClick(event){
     toggleButton(event.target);
 }
@@ -12,9 +11,6 @@ function handleBtnKeyDown(event){
         toggleButton(event.target);
     }
 }
-
-var bg= document.getElementsByClassName("slider");
-var box = document.getElementById("box");
 function toggleButton(element) {
     // Check to see if the button is pressed
     var pressed = (element.getAttribute("aria-pressed") === "true");
@@ -24,12 +20,10 @@ function toggleButton(element) {
     // toggle the play state of the audio file
 
     if(pressed) {
-        console.log("previews off");
         box.classList.add("checked");
         bg[0].classList.add("uncheckedBG");
 
     } else {
-        console.log("previews on");
         box.classList.remove("checked");
         bg[0].classList.remove("uncheckedBG");
     }
@@ -39,7 +33,6 @@ function isToggleOn(){
 }
 
 function drawArena() {
-
     var arena = d3.select(".rectangle");
 
     arena.append("text")
@@ -63,20 +56,17 @@ function drawArena() {
         'target_subway', 'target_swamp', 'target_temple', 'target_toystore', 'target_train', 'target_treehouse', 'target_tunnel', 'target_warehouse', 'target_waterfall',
         'target_waterpark', 'target_winecellar', 'target_workshop_IDS01'];
 
-
     for (var n = 0; n < random_images_array.length; n++) {
         random_images_array[n] = random_images_array[n] + '.png';
     }
 
-    var image = {
-        size: 70
-    };
-
     var img;
-    var x = 0, y = -5;
     var uniqueImg;
     var orig_ele = [];
     var dict = {};
+    var orig_pos = {};
+    var initialPositionSize = 0;
+
     function drawImages() {
         var i = 1;
         uniqueImg = new Set();
@@ -91,9 +81,8 @@ function drawArena() {
             appendDraggableImage(img);
             i++;
             //orig_ele.push([x, y]);
-        } while (i <= 100);
+        } while (i <= 30); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
     }
-
     drawImages();
 
     function redrawImages([x, y], uniqueImg, img) {
@@ -102,7 +91,6 @@ function drawArena() {
 
 
     var imgStr2;
-
     function getRandomImage(imgAr, path) {
         var num = Math.floor(Math.random() * imgAr.length);
         var img = imgAr[num];
@@ -111,8 +99,6 @@ function drawArena() {
     }
 
     var item;
-    var cloned_item;
-
     function appendDraggableImage(url) {    //#FIXME: retrieve position relative to rectangle rather than screen
 
         item = document.createElement("img");
@@ -120,24 +106,72 @@ function drawArena() {
         item.setAttribute("class", "item");
         item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px;");
 
-
+        //append the image to the gallery
         document.getElementById('gallery').appendChild(item);
-        cloned_item = document.getElementsByClassName("newItem");
+        //store original positions of pics within gallery
+        orig_ele.push([item.x, item.y]);
 
         d3.selectAll('.item')
-            .on("mouseover", function(d){
+            .on("mouseover", function () {
                 if (isToggleOn()) {
                     var tooltip = d3.select('#myTooltip');
                     tooltip.style('display', 'block');
                     tooltip.style('left', d3.event.pageX + "px");
                     tooltip.style('top', d3.event.pageY + "px");
-                    tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                    tooltip.html('<img src=' + this.src + ' + style="height: 116px" width="148px"/>');
                 }
             })
-            .on("mouseleave", function(d){
+            .on("mouseleave", function () {
                 var tooltip = d3.select('#myTooltip');
                 tooltip.style('display', 'none');
             });
+
+        $(function() {
+            $('.item').draggable({
+                revert: "invalid",
+                refreshPositions: true,
+                helper: 'clone',
+                start: function () {
+                    $(this).remove();
+                    $('.item').css('cursor', 'grabbing');
+                },
+                stop: function () {
+                    $('.item').css('cursor', 'grab');
+                }
+            });
+            $("body").droppable({
+                accept: '.item',
+                drop: function (event, ui) {
+                    $('.item').css('cursor', 'grab');
+                    var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
+                    new_item.draggable({
+                        start: function () {
+                            $(ui.helper).hide();
+                            $('.newItem').css('cursor', 'grabbing');
+                        },
+                        stop: function () {
+                            $('.newItem').css('cursor', 'grab');
+                        }
+                    });
+                    $(this).append(new_item);
+                    d3.selectAll('.newItem')
+                        .on("mouseover", function (d) {
+                            if (isToggleOn()) {
+                                var tooltip = d3.select('#myTooltip');
+                                tooltip.style('display', 'block');
+                                tooltip.style('left', d3.event.pageX + "px");
+                                tooltip.style('top', d3.event.pageY + "px");
+                                tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                                tooltip.raise();
+                            }
+                        })
+                        .on("mouseleave", function (d) {
+                            var tooltip = d3.select('#myTooltip');
+                            tooltip.style('display', 'none');
+                        })
+                }
+            });
+        });
 
 
         d3.select('.button_done')
@@ -152,37 +186,48 @@ function drawArena() {
             for (var i = 0; i < newItems.length; i++) {
                 //this if-statement updates position of images that are moved again
                 if (newItems[i].src in dict) {
-                    dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
+                    // dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
+                    dict[newItems[i].src] = [newItems[i].offsetLeft, newItems[i].offsetTop]
                 }
                 //else, add a new image to the arena
                 else {
-                    dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
+                    // dict[newItems[i].src] = "x: " + newItems[i].offsetLeft + ", y: " + newItems[i].offsetTop
+                    dict[newItems[i].src] = [newItems[i].offsetLeft, newItems[i].offsetTop]
                 }
             }
             console.log(dict);
+            // console.log(orig_pos);
             writeToDoc(dict);
         }
 
         function writeToDoc(dict) {
         }
 
+        //resets images to gallery when user wants to restart; currently appends imgs to end of gallery, NOT to original positions
+        //#FIXME: currently uses absolute path instead of relative-- might need to change once on server
+        d3.select('.button_reset')
+            .on('mousedown', function() {
+                var cloned_scenes = $('.newItem');
+                for (var i = 0; i < cloned_scenes.length; i++) {
+                    cloned_scenes.remove();
+                    delete dict[cloned_scenes[i].src];
+                    appendDraggableImage(cloned_scenes[i].src);
+                }
+            });
     }
 
-    var final_positions = [];
+    function getInitialPositions() {
+        var items = document.getElementsByClassName("item");
 
-
-    d3.select('.button_restart')
-        .on('mousedown', restartButton);
-
-    function restartButton() {
-        console.log(orig_ele);
-        //var img = getImageFromSet();
-        redrawImages([x, y], uniqueImg, img);
-        final_positions.length = 0;
-
-        //#FIXME: reset positions of all pics
-        //#FIXME: clear positions Set
+        for (var i = 0; i < items.length; i++){
+            orig_pos[items[i].src] = [items[i].x, items[i].y]
+            initialPositionSize++;
+        }
     }
+
+
+
+
 }
 
 

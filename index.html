@@ -11,54 +11,6 @@
     <title>Arena Task 2 WITH HTML</title>
   </head>
   <body>
-  <script type="text/javascript">
-    $(function() {
-      $('.item').draggable({
-        helper: 'clone',
-        start: function(){
-          $(this).hide();
-          $('.item').css('cursor', 'grabbing');
-        },
-        stop: function() {
-          $('.item').css('cursor', 'grab');
-        }
-      });
-
-      $("body").droppable({
-        accept: '.item',
-        drop: function(event, ui){
-          $('.item').css('cursor', 'grab');
-          var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
-          new_item.draggable({
-            start: function() {
-              $(ui.helper).hide();
-              $('.newItem').css('cursor', 'grabbing');
-            },
-            stop: function() {
-              $('.newItem').css('cursor', 'grab');
-            }
-          });
-          $(this).append(new_item);
-          d3.selectAll('.newItem')
-                  .on("mouseover", function(d){
-                    if (isToggleOn()) {
-                      var tooltip = d3.select('#myTooltip');
-                      tooltip.style('display', 'block');
-                      tooltip.style('left', d3.event.pageX + "px");
-                      tooltip.style('top', d3.event.pageY + "px");
-                      tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
-                      tooltip.raise();
-                    }
-                  })
-                  .on("mouseleave", function(d){
-                    var tooltip = d3.select('#myTooltip');
-                    tooltip.style('display', 'none');
-                  })
-        }
-      });
-    } );
-
-  </script>
 
   <div id = 'myTooltip'> </div>
 
@@ -77,7 +29,7 @@
     <label class="switch" >
       <h2> Toggle Thumbnail Previews </h2>
       <input type="checkbox" id="box">
-      <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)" onload="loadToggleBtn(event)"></span>
+      <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)"></span>
     </label>
   <button class="button_done" >Done</button>
   </div>
