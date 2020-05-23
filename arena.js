@@ -60,13 +60,13 @@ function drawArena() {
     var uniqueImg;
     // var orig_ele = [];
     var dict = {};
+    var gallery_count = 0;
     // var orig_pos = {};
     // var initialPositionSize = 0;
 
     function drawImages() {
-        var items = $(".item");
         var cloned_items = $(".newItem");
-        if (items.length == 0) {
+        if (gallery_count == 0) {
             cloned_items.remove();
             var i = 1;
             uniqueImg = new Set();
@@ -80,7 +80,7 @@ function drawArena() {
                 // appendDraggableImage(img, [x, y]);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 50); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 5); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         }
         else {
             alert("You still have one or more scenes left to arrange.");
@@ -107,6 +107,7 @@ function drawArena() {
 
         //append the image to the gallery
         document.getElementById('gallery').appendChild(item);
+        gallery_count++;
         //store original positions of pics within gallery
         // orig_ele.push([item.x, item.y]);
 
@@ -160,6 +161,7 @@ function drawArena() {
                             'top': (ui.position.top - parentOffset.top) + 'px',
                         });
                         $(this).append(new_item);
+                        gallery_count--;
                     }
 
                     d3.selectAll('.newItem')
