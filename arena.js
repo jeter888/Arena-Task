@@ -33,8 +33,8 @@ function isToggleOn(){
 }
 
 function drawArena() {
-    var arena = d3.select("#main");
-    arena.append("text")
+    var instructions = d3.select("#main");
+    instructions.append("text")
         .attr("class", "instructions")
         .text("Please arrange the scenes inside the rectangle according to their similarity");
 
@@ -139,11 +139,11 @@ function drawArena() {
                 }
             });
 
-            $("#drop-panel").droppable({
+            $("#arena").droppable({
                 accept: '*',
                 drop: function (event, ui) {
                     $('.item').css('cursor', 'grab');
-                    var parentOffset = jQuery('#drop-panel').offset();
+                    var parentOffset = jQuery('#arena').offset();
                     if(!ui.draggable.hasClass("newItem")) {
                         var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
                         new_item.draggable({
