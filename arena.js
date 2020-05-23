@@ -33,13 +33,10 @@ function isToggleOn(){
 }
 
 function drawArena() {
-    var arena = d3.select(".rectangle");
-
+    var arena = d3.select("#main");
     arena.append("text")
-        .text("Please arrange the scenes inside the rectangle according to their similarity")
-        .attr("x", 320)
-        .attr("y", 30)
-        .attr("font-size", 20);
+        .attr("class", "instructions")
+        .text("Please arrange the scenes inside the rectangle according to their similarity");
 
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
@@ -55,39 +52,41 @@ function drawArena() {
         'target_ruins', 'target_sewingroom', 'target_skatepark', 'target_soccerfield', 'target_stable', 'target_storage', 'target_stream', 'target_street_IDS01',
         'target_subway', 'target_swamp', 'target_temple', 'target_toystore', 'target_train', 'target_treehouse', 'target_tunnel', 'target_warehouse', 'target_waterfall',
         'target_waterpark', 'target_winecellar', 'target_workshop_IDS01'];
-
     for (var n = 0; n < random_images_array.length; n++) {
         random_images_array[n] = random_images_array[n] + '.png';
     }
 
     var img;
     var uniqueImg;
-    var orig_ele = [];
+    // var orig_ele = [];
     var dict = {};
-    var orig_pos = {};
-    var initialPositionSize = 0;
+    // var orig_pos = {};
+    // var initialPositionSize = 0;
 
     function drawImages() {
-        var i = 1;
-        uniqueImg = new Set();
-        do {
+        var items = $(".item");
+        var cloned_items = $(".newItem");
+        if (items.length == 0) {
+            cloned_items.remove();
+            var i = 1;
+            uniqueImg = new Set();
             do {
-                img = getRandomImage(random_images_array, 'data/arena_scene_examples/');
-                var initialSize = uniqueImg.size; //should start at zero and be of size i after loop
-                uniqueImg.add(img);
+                do {
+                    img = getRandomImage(random_images_array, 'data/arena_scene_examples/');
+                    var initialSize = uniqueImg.size; //should start at zero and be of size i after loop
+                    uniqueImg.add(img);
 
-            } while (uniqueImg.size == initialSize);
-            // appendDraggableImage(img, [x, y]);
-            appendDraggableImage(img);
-            i++;
-            //orig_ele.push([x, y]);
-        } while (i <= 30); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+                } while (uniqueImg.size == initialSize);
+                // appendDraggableImage(img, [x, y]);
+                appendDraggableImage(img);
+                i++;
+            } while (i <= 50); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+        }
+        else {
+            alert("You still have one or more scenes left to arrange.");
+        }
     }
-    drawImages();
-
-    function redrawImages([x, y], uniqueImg, img) {
-
-    }
+    drawImages(); //first draw-- initial trial
 
 
     var imgStr2;
@@ -99,17 +98,17 @@ function drawArena() {
     }
 
     var item;
-    function appendDraggableImage(url) {    //#FIXME: retrieve position relative to rectangle rather than screen
+    function appendDraggableImage(url) {
 
         item = document.createElement("img");
         item.src = url;
         item.setAttribute("class", "item");
-        item.setAttribute('style', "width: 64px; height: 48px; margin: 0 5px;");
+        item.setAttribute('style', "width: 64px; height: 48px;");
 
         //append the image to the gallery
         document.getElementById('gallery').appendChild(item);
         //store original positions of pics within gallery
-        orig_ele.push([item.x, item.y]);
+        // orig_ele.push([item.x, item.y]);
 
         d3.selectAll('.item')
             .on("mouseover", function () {
@@ -129,31 +128,40 @@ function drawArena() {
         $(function() {
             $('.item').draggable({
                 revert: "invalid",
-                refreshPositions: true,
                 helper: 'clone',
                 start: function () {
-                    $(this).remove();
+                    $(this).hide();
                     $('.item').css('cursor', 'grabbing');
                 },
                 stop: function () {
                     $('.item').css('cursor', 'grab');
                 }
             });
-            $("body").droppable({
-                accept: '.item',
+
+            $("#drop-panel").droppable({
+                accept: '*',
                 drop: function (event, ui) {
                     $('.item').css('cursor', 'grab');
-                    var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
-                    new_item.draggable({
-                        start: function () {
-                            $(ui.helper).hide();
-                            $('.newItem').css('cursor', 'grabbing');
-                        },
-                        stop: function () {
-                            $('.newItem').css('cursor', 'grab');
-                        }
-                    });
-                    $(this).append(new_item);
+                    var parentOffset = jQuery('#drop-panel').offset();
+                    if(!ui.draggable.hasClass("newItem")) {
+                        var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
+                        new_item.draggable({
+                            revert: "invalid",
+                            start: function () {
+                                $(ui.helper).hide();
+                                $('.newItem').css('cursor', 'grabbing');
+                            },
+                            stop: function () {
+                                $('.newItem').css('cursor', 'grab');
+                            }
+                        }).css({
+                            'position': 'absolute',
+                            'left': (ui.position.left - parentOffset.left) + 'px',
+                            'top': (ui.position.top - parentOffset.top) + 'px',
+                        });
+                        $(this).append(new_item);
+                    }
+
                     d3.selectAll('.newItem')
                         .on("mouseover", function (d) {
                             if (isToggleOn()) {
@@ -173,16 +181,20 @@ function drawArena() {
             });
         });
 
-
         d3.select('.button_done')
             .on('mousedown', doneButton);
 
         function doneButton() {
             getFinalPositions();
+            writeToDoc(dict);
+
+            //go to next subset of images
+            drawImages();
         }
 
         function getFinalPositions() {
             var newItems = $('.newItem');
+
             for (var i = 0; i < newItems.length; i++) {
                 //this if-statement updates position of images that are moved again
                 if (newItems[i].src in dict) {
@@ -197,10 +209,10 @@ function drawArena() {
             }
             console.log(dict);
             // console.log(orig_pos);
-            writeToDoc(dict);
         }
 
         function writeToDoc(dict) {
+
         }
 
         //resets images to gallery when user wants to restart; currently appends imgs to end of gallery, NOT to original positions
@@ -211,23 +223,11 @@ function drawArena() {
                 for (var i = 0; i < cloned_scenes.length; i++) {
                     cloned_scenes.remove();
                     delete dict[cloned_scenes[i].src];
-                    appendDraggableImage(cloned_scenes[i].src);
+                    // appendDraggableImage(cloned_scenes[i].src);
+                    $('.item').show();
                 }
             });
     }
-
-    function getInitialPositions() {
-        var items = document.getElementsByClassName("item");
-
-        for (var i = 0; i < items.length; i++){
-            orig_pos[items[i].src] = [items[i].x, items[i].y]
-            initialPositionSize++;
-        }
-    }
-
-
-
-
 }
 
 

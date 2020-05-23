@@ -13,20 +13,17 @@
   <body>
 
   <div id = 'myTooltip'> </div>
-
   <div id="main">
   <div class="background">
     <div id="gallery" style="width: 250px; height: 690px"></div>
   </div>
 
-    <svg class="rectangle" width="1300px" height="700px">
-    <rect id="drop-panel" width="1200px" height="620px" transform='translate(20 50)'> </rect>
-  </svg>
+  <div id="drop-panel" style="width: 1200px; height: 620px;"></div>
   </div>
 
   <div class="buttons">
     <button class="button_reset">Reset</button>
-    <label class="switch" >
+    <label class="switch">
       <h2> Toggle Thumbnail Previews </h2>
       <input type="checkbox" id="box">
       <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)"></span>

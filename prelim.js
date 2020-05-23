@@ -15,7 +15,8 @@ let appendSubjectToFile = () => {
     const sFileName = name.value;	   // The file to save the data.
 
     let newLink = document.createElement("a");
-    //#FIXME: commented this last section out to download file for later. For now, values are stored in variables
+
+    //#FIXME: commented this last section out to download file for later (once hooked up to server). For now, values are stored in variable 'data'
     // newLink.download = sFileName;
     //
     // if (window.webkitURL != null) {
@@ -28,7 +29,7 @@ let appendSubjectToFile = () => {
     //
     // newLink.click();
     window.location.assign("index.html");
-}
+};
 
 //     const fs = require('fs');
 //
