@@ -80,7 +80,7 @@ function drawArena() {
                 } while (uniqueImg.size == initialSize);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 5); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 40); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         }
         else {
             alert("You still have one or more scenes left to arrange.");

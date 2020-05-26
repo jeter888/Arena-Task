@@ -9,7 +9,6 @@ body {
     flex-wrap: wrap;
     flex-direction: column;
     position: absolute;
-    /*z-index: -999;*/
     z-index: 1;
 }
 #myTooltip {
@@ -18,7 +17,6 @@ body {
     padding: 8px;
     overflow-x: visible;
     overflow-y: visible;
-    /*background-color: black;*/
     color: white;
     opacity: 90%;
     width: 128px;
@@ -27,7 +25,6 @@ body {
 .newItem {
     cursor: grab;
     display: initial;
-    /*inset: auto;*/
     position: absolute;
     z-index: 5;
     opacity: 100%;
@@ -35,7 +32,6 @@ body {
 }
 #arena {
     background-color: gray;
-    /*opacity: 1;*/
     border: 3px solid black;
     position: absolute;
     right: 30px;
@@ -48,8 +44,11 @@ body {
     display: flex;
     flex-direction: row;
     position: absolute;
-    /*z-index: -200;*/
     z-index: 2;
+}
+#gallery {
+    white-space: normal;
+    overflow: scroll;
 }
 
 .background {
@@ -66,22 +65,12 @@ body {
     display: initial;
 }
 
-
-
 .instructions {
     position: absolute;
     left: 570px;
     top: 20px;
     font-size: 20px;
 }
-
-
-
-#gallery {
-    white-space: normal;
-    overflow: scroll;
-}
-
 
 .buttons{
     margin-left: 250px;
@@ -103,11 +92,9 @@ body {
     width: 100px;
     height: 50px;
     transition: 0.3s;
-    /*display: inline-block;*/
     text-decoration: none;
     cursor: pointer;
     position: relative;
-    /*margin-left: 150px;*/
     top: -30px;
 }
 
@@ -122,7 +109,6 @@ body {
     width: 100px;
     height: 50px;
     transition: 0.3s;
-    /*display: inline-block;*/
     text-decoration: none;
     cursor: pointer;
     position: relative;
