@@ -17,17 +17,17 @@ let appendSubjectToFile = () => {
     let newLink = document.createElement("a");
 
     //#FIXME: commented this last section out to download file for later (once hooked up to server). For now, values are stored in variable 'data'
-    newLink.download = sFileName;
-
-    if (window.webkitURL != null) {
-        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
-    } else {
-        newLink.href = window.URL.createObjectURL(textToBLOB);
-        newLink.style.display = "none";
-        document.body.appendChild(newLink);
-    }
-
-    newLink.click();
+    // newLink.download = sFileName;
+    //
+    // if (window.webkitURL != null) {
+    //     newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    // } else {
+    //     newLink.href = window.URL.createObjectURL(textToBLOB);
+    //     newLink.style.display = "none";
+    //     document.body.appendChild(newLink);
+    // }
+    //
+    // newLink.click();
     window.location.assign("index.html");
 };
 

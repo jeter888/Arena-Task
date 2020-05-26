@@ -49,6 +49,13 @@ body {
 #gallery {
     white-space: normal;
     overflow: scroll;
+    /*position: static;*/
+}
+
+#wrapper {
+    height: auto;
+    width: 1200px;
+    margin: 0 auto; /*this will centralize the div, horizontal. so that it is nice looking in the middle on different computer screens. */
 }
 
 .background {
@@ -73,7 +80,7 @@ body {
 }
 
 .buttons{
-    margin-left: 250px;
+    margin-left: -1100px;
     margin-top: 710px;
     display: flex;
     flex-direction: row;
