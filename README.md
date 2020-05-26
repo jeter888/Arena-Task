@@ -1,4 +1,4 @@
-# Arena-Task- UPDATED INSTRUCTIONS (5/27/20)
+# Arena-Task- UPDATED INSTRUCTIONS (5/26/20)
 To open the Arena Task, clone or download/extract the zip file of this project and open *index_prelim.html* to begin the task.
 
 *Currently*: Any user that submits their "SONA ID" will have a text file which contains their input downloaded locally to their computer. 
