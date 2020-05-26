@@ -58,16 +58,17 @@ function drawArena() {
 
     var img;
     var uniqueImg;
-    // var orig_ele = [];
     var dict = {};
     var gallery_count = 0;
-    // var orig_pos = {};
-    // var initialPositionSize = 0;
+
+    var trial_count = 1; //keeps track of trials
 
     function drawImages() {
         var cloned_items = $(".newItem");
+        var items = $(".item");
         if (gallery_count == 0) {
             cloned_items.remove();
+            items.remove();
             var i = 1;
             uniqueImg = new Set();
             do {
@@ -77,7 +78,6 @@ function drawArena() {
                     uniqueImg.add(img);
 
                 } while (uniqueImg.size == initialSize);
-                // appendDraggableImage(img, [x, y]);
                 appendDraggableImage(img);
                 i++;
             } while (i <= 5); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
@@ -108,8 +108,6 @@ function drawArena() {
         //append the image to the gallery
         document.getElementById('gallery').appendChild(item);
         gallery_count++;
-        //store original positions of pics within gallery
-        // orig_ele.push([item.x, item.y]);
 
         d3.selectAll('.item')
             .on("mouseover", function () {
@@ -118,7 +116,7 @@ function drawArena() {
                     tooltip.style('display', 'block');
                     tooltip.style('left', d3.event.pageX + "px");
                     tooltip.style('top', d3.event.pageY + "px");
-                    tooltip.html('<img src=' + this.src + ' + style="height: 116px" width="148px"/>');
+                    tooltip.html('<img src=' + this.src + ' + style="height=116px" width="148px"/>');
                 }
             })
             .on("mouseleave", function () {
@@ -126,15 +124,21 @@ function drawArena() {
                 tooltip.style('display', 'none');
             });
 
+        var moved = false;
         $(function() {
             $('.item').draggable({
-                revert: "invalid",
                 helper: 'clone',
+                revert: "invalid",
                 start: function () {
+                    moved = false;
                     $(this).hide();
                     $('.item').css('cursor', 'grabbing');
                 },
-                stop: function () {
+                stop: function (event, ui) {
+                        if ((ui.helper.hasClass("item") && moved == false)) {
+                            $(this).show();
+                        }
+
                     $('.item').css('cursor', 'grab');
                 }
             });
@@ -145,9 +149,10 @@ function drawArena() {
                     $('.item').css('cursor', 'grab');
                     var parentOffset = jQuery('#arena').offset();
                     if(!ui.draggable.hasClass("newItem")) {
+                        moved = true;
                         var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
                         new_item.draggable({
-                            revert: "invalid",
+                            revert: 'invalid',
                             start: function () {
                                 $(ui.helper).hide();
                                 $('.newItem').css('cursor', 'grabbing');
@@ -186,12 +191,21 @@ function drawArena() {
         d3.select('.button_done')
             .on('mousedown', doneButton);
 
+        //#FIXME: currently saves trial data to local text file-- need to hook up to server
         function doneButton() {
+            var cloned_items = $('.newItem');
             getFinalPositions();
-            writeToDoc(dict);
-
-            //go to next subset of images
-            drawImages();
+            if (gallery_count == 0) {
+                writeReport("SONA_data", dict, trial_count); //*this MUST go before the following for-loop in order to save positions of previous trial*
+                trial_count++;
+                //remove scenes in dict from previous trial to reset to empty dict for scenes in new trial
+                for (var i = 0; i < cloned_items.length; i++) {
+                    delete dict[cloned_items[i].src];
+                }
+            }
+            //#FIXME: THIS IS WHERE "LIFT THE WEAKEST" ALGORITHM WILL BE IMPLEMENTED RATHER THAN CALLING drawImages() AGAIN (since the subsequent...
+            // #FIXME: ...trials will not be randomly generated scenes)
+            drawImages(); //generate next subset of random images for next trial
         }
 
         function getFinalPositions() {
@@ -209,27 +223,32 @@ function drawArena() {
                     dict[newItems[i].src] = [newItems[i].offsetLeft, newItems[i].offsetTop]
                 }
             }
-            console.log(dict);
-            // console.log(orig_pos);
         }
 
-        function writeToDoc(dict) {
+        function writeReport(path, dict, trial_count) {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
+                type: "text/plain"
+            }));
+            a.setAttribute("download", "trial" + trial_count);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
 
         }
 
-        //resets images to gallery when user wants to restart; currently appends imgs to end of gallery, NOT to original positions
+        //resets images to original positions in gallery when user wants to restart;
         //#FIXME: currently uses absolute path instead of relative-- might need to change once on server
         d3.select('.button_reset')
             .on('mousedown', function() {
                 var cloned_scenes = $('.newItem');
                 for (var i = 0; i < cloned_scenes.length; i++) {
+                    //removes scenes from arena
                     cloned_scenes.remove();
                     delete dict[cloned_scenes[i].src];
-                    // appendDraggableImage(cloned_scenes[i].src);
                     $('.item').show();
                 }
+                gallery_count = $('.item').length;
             });
     }
 }
-
-

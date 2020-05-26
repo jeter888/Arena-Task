@@ -26,6 +26,7 @@ body {
 }
 .newItem {
     cursor: grab;
+    display: initial;
     /*inset: auto;*/
     position: absolute;
     z-index: 5;
@@ -62,6 +63,7 @@ body {
     cursor: grab;
     opacity: 100%;
     margin: 0 5px;
+    display: initial;
 }
 
 
