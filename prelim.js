@@ -1,4 +1,4 @@
-let appendSubjectToFile = () => {
+function appendSubjectToFile() {
 
     // Get the SONA ID text input from the form
     const name = document.getElementById('txtID');
@@ -29,7 +29,9 @@ let appendSubjectToFile = () => {
     //
     // newLink.click();
     window.location.assign("index.html");
-};
+}
+
+//#FIXME: possible alternative function with Node.js or setup server
 
 //     const fs = require('fs');
 //

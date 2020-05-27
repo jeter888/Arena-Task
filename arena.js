@@ -32,6 +32,12 @@ function isToggleOn(){
     return document.getElementsByClassName("slider")[0].getAttribute("aria-pressed") === "true";
 }
 
+// console.log(screen.width)
+// console.log(screen.height)
+// console.log($(document).width())
+// console.log($(document).height())
+
+
 function drawArena() {
     var instructions = d3.select("#main");
     instructions.append("text")
@@ -116,7 +122,7 @@ function drawArena() {
                     tooltip.style('display', 'block');
                     tooltip.style('left', d3.event.pageX + "px");
                     tooltip.style('top', d3.event.pageY + "px");
-                    tooltip.html('<img src=' + this.src + ' + style="height=116px" width="148px"/>');
+                    tooltip.html('<img src=' + this.src + ' + style="height=139.2px" width="177.6px"/>');
                 }
             })
             .on("mouseleave", function () {
@@ -124,7 +130,7 @@ function drawArena() {
                 tooltip.style('display', 'none');
             });
 
-        var moved = false;
+        var moved;
         $(function() {
             $('.item').draggable({
                 helper: 'clone',
@@ -134,8 +140,8 @@ function drawArena() {
                     $(this).hide();
                     $('.item').css('cursor', 'grabbing');
                 },
-                stop: function (event, ui) {
-                        if ((ui.helper.hasClass("item") && moved == false)) {
+                stop: function () {
+                        if (moved === false) {
                             $(this).show();
                         }
 
@@ -176,7 +182,7 @@ function drawArena() {
                                 tooltip.style('display', 'block');
                                 tooltip.style('left', d3.event.pageX + "px");
                                 tooltip.style('top', d3.event.pageY + "px");
-                                tooltip.html('<img src=' + this.src + ' + style="height: 96px" width="128px"/>');
+                                tooltip.html('<img src=' + this.src + ' + style="height: 139.2px" width="177.6px"/>');
                                 tooltip.raise();
                             }
                         })

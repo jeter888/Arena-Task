@@ -18,9 +18,9 @@ body {
     overflow-x: visible;
     overflow-y: visible;
     /*color: white;*/
-    opacity: 90%;
-    width: 128px;
-    height: 96px;
+    /*opacity: 90%;*/
+    width: 177.6px;
+    height: 139.2px;
 }
 .newItem {
     cursor: grab;
