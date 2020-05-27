@@ -39,7 +39,7 @@ function isToggleOn(){
 
 
 function drawArena() {
-    var instructions = d3.select("#main");
+    var instructions = d3.select("#arena");
     instructions.append("text")
         .attr("class", "instructions")
         .text("Please arrange the scenes inside the rectangle according to their similarity");
@@ -165,12 +165,13 @@ function drawArena() {
                             },
                             stop: function () {
                                 $('.newItem').css('cursor', 'grab');
-                            }
-                        }).css({
-                            'position': 'absolute',
-                            'left': (ui.position.left - parentOffset.left) + 'px',
-                            'top': (ui.position.top - parentOffset.top) + 'px',
-                        });
+                            }})
+                        // }).css({
+                        //     'position': 'absolute',
+                        //     'left': (ui.position.left - parentOffset.left) + 'px',
+                        //     'top': (ui.position.top - parentOffset.top) + 'px',
+                        // })
+                        ;
                         $(this).append(new_item);
                         gallery_count--;
                     }
