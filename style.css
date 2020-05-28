@@ -61,7 +61,7 @@ body {
 }
 
 .background {
-    width: 250px;
+    width: 16vw;
     height: 690px;
     /*background-color: black;*/
     margin: -770px -280px 75px;
@@ -90,6 +90,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+
 }
 
 .button_done {
