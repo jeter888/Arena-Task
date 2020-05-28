@@ -39,8 +39,8 @@ function isToggleOn(){
 
 
 function drawArena() {
-    var check = document.getElementById("arena");
-    console.log(check.getBoundingClientRect())
+    // var check = document.getElementById("arena");
+    // console.log(check.getBoundingClientRect())
 
     var instructions = d3.select("#arena");
     instructions.append("text")
@@ -89,7 +89,7 @@ function drawArena() {
                 } while (uniqueImg.size == initialSize);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 6); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 40); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         }
         else {
             alert("You still have one or more scenes left to arrange.");
