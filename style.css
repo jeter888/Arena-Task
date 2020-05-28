@@ -9,7 +9,7 @@ body {
     flex-direction: column;
     position: absolute;
     z-index: 1;
-    /*overflow: scroll;*/
+    overflow: scroll;
 }
 #myTooltip {
     position: absolute;
@@ -85,6 +85,7 @@ body {
     /*top: -40px;*/
     margin-left: 37vw;
     font-size: 20px;
+
 }
 
 .buttons{
