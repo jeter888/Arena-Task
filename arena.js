@@ -39,7 +39,10 @@ function isToggleOn(){
 
 
 function drawArena() {
-    var instructions = d3.select("body");
+    var check = document.getElementById("arena");
+    console.log(check.getBoundingClientRect())
+
+    var instructions = d3.select("#arena");
     instructions.append("text")
         .attr("class", "instructions")
         .text("Please arrange the scenes inside the rectangle according to their similarity");
@@ -86,7 +89,7 @@ function drawArena() {
                 } while (uniqueImg.size == initialSize);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 45); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 6); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         }
         else {
             alert("You still have one or more scenes left to arrange.");
@@ -166,7 +169,8 @@ function drawArena() {
                             stop: function () {
                                 $('.newItem').css('cursor', 'grab');
                             }
-                        }).css({
+                        })
+                            .css({
                             'position': 'absolute',
                             'left': (ui.position.left - parentOffset.left) + 'px',
                             'top': (ui.position.top - parentOffset.top) + 'px',
