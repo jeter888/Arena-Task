@@ -1,3 +1,4 @@
+//series of functions for toggle button
 var bg= document.getElementsByClassName("slider");
 var box = document.getElementById("box");
 function handleBtnClick(event){
@@ -39,14 +40,13 @@ function isToggleOn(){
 
 
 function drawArena() {
-    // var check = document.getElementById("arena");
-    // console.log(check.getBoundingClientRect())
-
     var instructions = d3.select("#arena");
     instructions.append("text")
         .attr("class", "instructions")
         .text("Please arrange the scenes inside the rectangle according to their similarity");
 
+    //javascript does not allow simply looping through directories... once hooked up to server can use node.js or alternative so we don't have to
+    // hardcode filenames
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
         'target_bathroom', 'target_beach', 'target_bedroom', 'target_boating_IDS01', 'target_buffet', 'target_building_IDS01', 'target_busstop',
@@ -172,8 +172,8 @@ function drawArena() {
                         })
                             .css({
                             'position': 'absolute',
-                            'left': (ui.position.left - parentOffset.left) + 'px',
-                            'top': (ui.position.top - parentOffset.top) + 'px',
+                            'left': (ui.position.left - parentOffset.left + 10.5) + 'px',
+                            'top': (ui.position.top - parentOffset.top + 5) + 'px',
                         });
                         $(this).append(new_item);
                         gallery_count--;

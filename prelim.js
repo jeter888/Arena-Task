@@ -31,6 +31,8 @@ function appendSubjectToFile() {
     window.location.assign("index.html");
 }
 
+
+
 //#FIXME: possible alternative function with Node.js or setup server
 
 //     const fs = require('fs');
