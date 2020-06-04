@@ -164,6 +164,7 @@ function drawArena() {
                             revert: 'invalid',
                             start: function () {
                                 $(ui.helper).hide();
+                                d3.select(this).raise();
                                 $('.newItem').css('cursor', 'grabbing');
                             },
                             stop: function () {
