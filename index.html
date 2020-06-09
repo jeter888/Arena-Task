@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
+    <link href="bootstrap.css" rel="stylesheet">
+    <link href="titatoggle-dist.css" rel="stylesheet">
+<!--    <link href="_titatoggle.scss" rel="stylesheet">-->
     <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Also include jQueryUI -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <title>Arena Scene Task</title>
-  </head>
+</head>
 
-  <body>
-
-  <div id = 'myTooltip'> </div>
-
-  <div id="arena" style="width: 1230px; height: 640px;">
-      <div class="wrapper">
-          <div class="buttons" style="width: 100%; height: 100%">
-              <button class="button_reset">Reset</button>
-              <label class="switch">
-                  <h2> Toggle Thumbnail Previews </h2>
-                  <input type="checkbox" id="box">
-                  <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)"></span>
-              </label>
-              <button class="button_done" >Done</button>
-          </div>
-      </div>
-  </div>
-<div class="background">
-    <div id="gallery" style="width: 100%; height: 100%"></div>
+<body>
+<!--  <div class="gallery-container">-->
+<div id="gallery">
+    <div id='myTooltip'></div>
 </div>
 <!--  </div>-->
 
+<div class="task-area">
+    <div class="instructions">Please arrange the scenes inside the rectangle according to their similarity</div>
+    <div id="arena"></div>
+    <!--      <div class="wrapper">-->
+    <div class="buttons">
+        <button class="button_reset">Reset</button>
+        <div class="form-check checkbox-slider--b-flat checkbox-slider-lg">
+<!--            <h2> Toggle Thumbnail Previews </h2>-->
+            <label id="switch" onclick="toggleButton()">
+                <input id="toggle" checked type="checkbox">
+                <span>Toggle Thumbnail
+                    Previews</span>
+            </label>
+        </div>
+<!--        <label class="switch">-->
+<!--            <h2> Toggle Thumbnail Previews </h2>-->
+<!--            <input type="checkbox" id="box"/>-->
+<!--            <label for="box">Toggle</label>-->
+<!--            <span class="slider" role="button" aria-pressed="true" onclick="handleBtnClick(event)" onkeydown="handleBtnKeyDown(event)"></span>-->
+<!--        </label>-->
+
+        <button class="button_done">Done</button>
+    </div>
+    <!--      </div>-->
+</div>
+
 <!--  </div>-->
 
-  </body>
+<!--  </div>-->
+
+</body>
 
 
 <script src="scripts/d3.v4.js"></script>
-<script src = "arena.js" onload="drawArena()"></script>
+<script src="arena.js" onload="drawArena()"></script>
 
 
 </html>

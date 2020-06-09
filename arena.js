@@ -1,52 +1,17 @@
-//series of functions for toggle button
-var bg= document.getElementsByClassName("slider");
-var box = document.getElementById("box");
-function handleBtnClick(event){
-    toggleButton(event.target);
-}
-function handleBtnKeyDown(event){
-    // Check to see if space or enter were pressed
-    if (event.key === " " || event.key === "Enter" || event.key === "Spacebar") { // "Spacebar" for IE11 support
-        // Prevent the default action to stop scrolling when space is pressed
-        event.preventDefault();
-        toggleButton(event.target);
-    }
-}
-function toggleButton(element) {
+function toggleButton() {
     // Check to see if the button is pressed
-    var pressed = (element.getAttribute("aria-pressed") === "true");
+    var pressed = document.getElementById("toggle");
 
-    // Change aria-pressed to the opposite state
-    element.setAttribute("aria-pressed", !pressed);
-    // toggle the play state of the audio file
-
-    if(pressed) {
-        box.classList.add("checked");
-        bg[0].classList.add("uncheckedBG");
-
-    } else {
-        box.classList.remove("checked");
-        bg[0].classList.remove("uncheckedBG");
-    }
-}
-function isToggleOn(){
-    return document.getElementsByClassName("slider")[0].getAttribute("aria-pressed") === "true";
+    // Change "checked"" to the opposite state
+    pressed.checked = !pressed.checked;
 }
 
-// console.log(screen.width)
-// console.log(screen.height)
-// console.log($(document).width())
-// console.log($(document).height())
-
+function isToggleOn() {
+    return document.getElementById("toggle").checked;
+}
 
 function drawArena() {
-    var instructions = d3.select("#arena");
-    instructions.append("text")
-        .attr("class", "instructions")
-        .text("Please arrange the scenes inside the rectangle according to their similarity");
-
-    //javascript does not allow simply looping through directories... once hooked up to server can use node.js or alternative so we don't have to
-    // hardcode filenames
+    //javascript does not allow simply looping through directories... once hooked up to server we don't have to hardcode filenames
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
         'target_bathroom', 'target_beach', 'target_bedroom', 'target_boating_IDS01', 'target_buffet', 'target_building_IDS01', 'target_busstop',
@@ -90,15 +55,16 @@ function drawArena() {
                 appendDraggableImage(img);
                 i++;
             } while (i <= 40); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
-        }
-        else {
+        } else {
             alert("You still have one or more scenes left to arrange.");
         }
     }
+
     drawImages(); //first draw-- initial trial
 
 
     var imgStr2;
+
     function getRandomImage(imgAr, path) {
         var num = Math.floor(Math.random() * imgAr.length);
         var img = imgAr[num];
@@ -107,6 +73,7 @@ function drawArena() {
     }
 
     var item;
+
     function appendDraggableImage(url) {
 
         item = document.createElement("img");
@@ -134,7 +101,7 @@ function drawArena() {
             });
 
         var moved;
-        $(function() {
+        $(function () {
             $('.item').draggable({
                 helper: 'clone',
                 revert: "invalid",
@@ -144,9 +111,9 @@ function drawArena() {
                     $('.item').css('cursor', 'grabbing');
                 },
                 stop: function () {
-                        if (moved === false) {
-                            $(this).show();
-                        }
+                    if (moved === false) {
+                        $(this).show();
+                    }
 
                     $('.item').css('cursor', 'grab');
                 }
@@ -157,7 +124,7 @@ function drawArena() {
                 drop: function (event, ui) {
                     $('.item').css('cursor', 'grab');
                     var parentOffset = jQuery('#arena').offset();
-                    if(!ui.draggable.hasClass("newItem")) {
+                    if (!ui.draggable.hasClass("newItem")) {
                         moved = true;
                         var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
                         new_item.draggable({
@@ -172,10 +139,10 @@ function drawArena() {
                             }
                         })
                             .css({
-                            'position': 'absolute',
-                            'left': (ui.position.left - parentOffset.left + 10.5) + 'px',
-                            'top': (ui.position.top - parentOffset.top + 5) + 'px',
-                        });
+                                'position': 'absolute',
+                                'left': (ui.position.left - parentOffset.left + 2) + 'px',
+                                'top': (ui.position.top - parentOffset.top - 2) + 'px',
+                            });
                         $(this).append(new_item);
                         gallery_count--;
                     }
@@ -251,7 +218,7 @@ function drawArena() {
         //resets images to original positions in gallery when user wants to restart;
         //#FIXME: currently uses absolute path instead of relative-- might need to change once on server
         d3.select('.button_reset')
-            .on('mousedown', function() {
+            .on('mousedown', function () {
                 var cloned_scenes = $('.newItem');
                 for (var i = 0; i < cloned_scenes.length; i++) {
                     //removes scenes from arena
