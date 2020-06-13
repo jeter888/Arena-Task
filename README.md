@@ -1,9 +1,14 @@
-# Arena-Task- UPDATED INSTRUCTIONS (5/26/20)
-To open the Arena Task, clone or download/extract the zip file of this project and open *index_prelim.html* to begin the task. This currently works
+# Arena-Task- UPDATED INSTRUCTIONS (6/12/20)
+To open the Arena Task (version2), clone or download/extract the zip file of this project and open *index.html* to begin the task. This
+ currently works
  best in Firefox.
 
-*Currently*: Any user that submits their "SONA ID" will have a text file which contains their input downloaded locally to their computer. 
-Likewise, with every trial submission during the task, a text file will be locally downloaded with each trial containing metadata (scene path and corresponding coordinates). 
+*Differences from Master branch*: There is no longer a need for prelim.js and index_prelim.html for this version since the SONA data retrieval is
+ now combined into index.html and arena.js.
+ 
+In the master version, with every trial submission during the task, a text file will be locally downloaded with each trial containing
+ metadata (scene path and corresponding coordinates). In this version, we would like one text file to be downloaded at the end of the final trial
+  (the number of trials may be dependent on the Lift-the-Weakest Algorithm which has not yet been implemented).
 
 Once the task is hooked up to a server, the text file will need to be saved to the experimenter's folder "SONA_data" found in the project files.
 
