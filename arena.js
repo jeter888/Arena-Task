@@ -1,3 +1,68 @@
+function saveSONAId() {
+    // Get the SONA ID text input from the form
+    const name = document.getElementById('txtID');
+
+    // This variable stores all the data.
+    let data =
+        '\r SONA ID: ' + name.value + ' \r\n ';
+
+
+    // Convert the text to BLOB.
+    const textToBLOB = new Blob([data], {type: 'text/plain'});
+
+    //set the filename equal to the SONA ID (can change later)
+    const sFileName = name.value;	   // The file to save the data.
+
+    let newLink = document.createElement("a");
+
+    //#FIXME: commented this last section out to download file for later (once hooked up to server). For now, values are stored in variable 'data'
+    // newLink.download = sFileName;
+    //
+    // if (window.webkitURL != null) {
+    //     newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    // } else {
+    //     newLink.href = window.URL.createObjectURL(textToBLOB);
+    //     newLink.style.display = "none";
+    //     document.body.appendChild(newLink);
+    // }
+    //
+    // newLink.click();
+    // window.location.assign("index.html");
+    document.getElementById("sona_form").remove();
+    document.getElementById("gallery").style.visibility = "visible";
+    document.getElementById("task-area").style.visibility = "visible";
+    drawArena(name.value);
+}
+
+
+
+//#FIXME: possible alternative function with Node.js or setup server
+
+//     const fs = require('fs');
+//
+// // specify the path to the file, and create a buffer with characters we want to write
+//     let path = 'SONA_data/';
+//     let buffer = new Buffer('Those who wish to follow me\nI welcome with my hands\nAnd the red sun sinks at last');
+//     fs.open(path, 'w', function(err, fd) {
+//         if (err) {
+//             throw 'could not open file: ' + err;
+//         }
+//         fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+//             if (err) throw 'error writing file: ' + err;
+//             fs.close(fd, function() {
+//                 console.log('wrote the file successfully');
+//             });
+//         });
+//     });
+//
+//
+//     //after sona data saves, redirect to experiment page
+//     window.location.assign("index.html");
+//     // drawArena();
+//
+// }
+
+
 function toggleButton() {
     // Check to see if the button is pressed
     var pressed = document.getElementById("toggle");
@@ -10,7 +75,8 @@ function isToggleOn() {
     return document.getElementById("toggle").checked;
 }
 
-function drawArena() {
+function drawArena(subjectId) {
+    console.log(document.getElementById("toggle").checked);
     //javascript does not allow simply looping through directories... once hooked up to server we don't have to hardcode filenames
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
@@ -54,7 +120,7 @@ function drawArena() {
                 } while (uniqueImg.size == initialSize);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 40); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 5); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         } else {
             alert("You still have one or more scenes left to arrange.");
         }
@@ -119,6 +185,10 @@ function drawArena() {
                 }
             });
 
+            $('.item').tooltip({
+                content: "Awesome title!"
+            });
+
             $("#arena").droppable({
                 accept: '*',
                 drop: function (event, ui) {
@@ -170,6 +240,8 @@ function drawArena() {
             .on('mousedown', doneButton);
 
         //#FIXME: currently saves trial data to local text file-- need to hook up to server
+        //The way the data is written will need to change if we want all positions printed to one txt file after all trials are completed, rather
+        // than one per trial. In that case, we need to know how many trials there would be.
         function doneButton() {
             var cloned_items = $('.newItem');
             getFinalPositions();
@@ -208,7 +280,7 @@ function drawArena() {
             a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
                 type: "text/plain"
             }));
-            a.setAttribute("download", "trial" + trial_count);
+            a.setAttribute("download", subjectId);
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

@@ -484,7 +484,7 @@ Sizes
   .checkbox-slider-lg input + span {
     padding-left: 80px; }
   .checkbox-slider-lg input + span:before {
-    width: 80px; }
+    width: 100px;}
   .checkbox-slider-lg input + span:after,
   .checkbox-slider-lg input + span:before {
     height: 40px;
@@ -493,7 +493,7 @@ Sizes
     width: 40px;
     vertical-align: middle; }
   .checkbox-slider-lg input:checked + span:after {
-    margin-left: 40px; }
+    margin-left: 60px; }
 
 /*******************************************************
 Variations

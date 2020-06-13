@@ -13,27 +13,46 @@
     <!-- Also include jQueryUI -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <title>Arena Scene Task</title>
+    <style>
+
+    </style>
 </head>
 
 <body>
+
+<div id="sona_form">
+
+    <!--Add elements to the form-->
+
+    <div>
+        <label for="txtID"></label><input type="text" id="txtID" placeholder="Please enter your SONA ID"/>
+    </div>
+
+    <div>
+        <input type="button" id="bt" value="Submit" onclick="saveSONAId()"/>
+    </div>
+
+</div>
+
 <!--  <div class="gallery-container">-->
-<div id="gallery">
+<div id="gallery" style="visibility: collapse">
     <div id='myTooltip'></div>
 </div>
 <!--  </div>-->
 
-<div class="task-area">
+<div id="task-area" style="visibility: collapse">
     <div class="instructions">Please arrange the scenes inside the rectangle according to their similarity</div>
     <div id="arena"></div>
     <!--      <div class="wrapper">-->
+<!--    <h2>Toggle Thumbnail Previews</h2>-->
     <div class="buttons">
         <button class="button_reset">Reset</button>
+
         <div class="form-check checkbox-slider--b-flat checkbox-slider-lg">
-<!--            <h2> Toggle Thumbnail Previews </h2>-->
             <label id="switch" onclick="toggleButton()">
-                <input id="toggle" checked type="checkbox">
-                <span>Toggle Thumbnail
-                    Previews</span>
+                <input id="toggle" type="checkbox" checked>
+                <span>Toggle Thumbnails</span>
+
             </label>
         </div>
 <!--        <label class="switch">-->
@@ -56,7 +75,7 @@
 
 
 <script src="scripts/d3.v4.js"></script>
-<script src="arena.js" onload="drawArena()"></script>
+<script src="arena.js"></script>
 
 
 </html>

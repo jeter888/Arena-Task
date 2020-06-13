@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+.ui-helper-hidden-accessible { display:none; }
+
+#sona_form {
+    padding: 10px;
+    background-color: #f6f6f6;
+    overflow: hidden;
+    width: 100%;
+    height: 20%;
+    box-sizing: border-box;
+}
+input[type=text], textarea, select {
+    font: 17px Calibri;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type=button]{
+    font: 17px Calibri;
+    width: auto;
+    float: right;
+    cursor: pointer;
+    padding: 7px;
+}
+
 html {
     width: 100%;
     height: 100%;
@@ -27,7 +52,7 @@ body {
     /*position: static;*/
 }
 
-.task-area {
+#task-area {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,9 +79,6 @@ body {
     height: 85%;
     position: relative;
     z-index: 5;
-    /*box-sizing: border-box;*/
-    /*min-width: 1230px;*/
-    /*min-width: 80vw;*/
 }
 .buttons {
     display: flex;
@@ -100,8 +122,13 @@ body {
 .checkbox-slider--b-flat {
 }
 
+h2{
+    font-size: 1em;
+
+}
+
 #myTooltip {
-    position: absolute;
+    position: fixed;
     z-index: 7;
     padding: 10px;
     overflow-x: visible;
@@ -130,28 +157,3 @@ body {
     opacity: 100%;
     margin: 0 0;
 }
-
-
-/*#main {*/
-/*    width: 100%;*/
-/*    !*box-sizing: border-box;*!*/
-/*    height: 680px;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    position: absolute;*/
-/*    z-index: 2;*/
-/*}*/
-
-
-/*.wrapper {*/
-/*    width: 85vw;*/
-/*    height: 20px;*/
-/*    position: absolute;*/
-/*    margin-top: 670px;*/
-/*    margin-left: -40px;*/
-/*    !*margin: 0 auto; !*this will centralize the div, horizontal. so that it is nice looking in the middle on different computer screens. *!*!*/
-/*}*/
-
-
-
-
