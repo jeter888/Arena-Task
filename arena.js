@@ -29,8 +29,8 @@ function saveSONAId() {
     // newLink.click();
     // window.location.assign("index.html");
     document.getElementById("sona_form").remove();
-    document.getElementById("gallery").style.visibility = "visible";
-    document.getElementById("task-area").style.visibility = "visible";
+    document.getElementById("gallery").style.display = "inline-block";
+    document.getElementById("task-area").style.display = "inline-block";
     drawArena(name.value);
 }
 
