@@ -58,6 +58,7 @@ body {
     align-items: center;
     width: 70%;
     height: 100%;
+    margin-left: 1vw;
 }
 
 .instructions {
@@ -156,4 +157,18 @@ h2{
     z-index: 7;
     opacity: 100%;
     margin: 0 0;
+}
+
+#toosmall {
+    display: none;
+}
+
+@media screen and (max-width: 800px) , screen and (max-height: 600px) {
+    #toosmall{
+        display: flex;
+        position: fixed;
+        background: red;
+        top: 20vh;
+        left: 20vw
+    }
 }
