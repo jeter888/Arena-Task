@@ -76,6 +76,8 @@ function isToggleOn() {
 }
 
 function drawArena(subjectId) {
+    console.log($(window).width());
+    console.log($(window).height())
     //javascript does not allow simply looping through directories... once hooked up to server we don't have to hardcode filenames
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
