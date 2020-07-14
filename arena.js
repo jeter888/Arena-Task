@@ -153,7 +153,7 @@ function drawArena(subjectId) {
             /* CONFIG */
 
             xOffset = 10;
-            yOffset = 30;
+            yOffset = 10;
 
             // these 2 variable determine popup's distance from the cursor
             // you might want to adjust to get the right result
@@ -230,7 +230,7 @@ function drawArena(subjectId) {
                     $('.newItem').hover(function(e){
                         if (isToggleOn()){
                             xOffset = 10;
-                            yOffset = 30;
+                            yOffset = 10;
                             $("body").append("<p id='preview'><img src='"+ this.src +"' style=\"height=139.2px\" width=\"177.6px\" alt='Image preview'" +
                                 " />" +"</p>");
                             $("#preview")
