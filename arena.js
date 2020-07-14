@@ -203,7 +203,7 @@ function drawArena(subjectId) {
                 accept: '*',
                 drop: function (event, ui) {
                     $('.item').css('cursor', 'grab');
-                    var parentOffset = jQuery('#arena').offset();
+                    var parentOffset = $('#arena').offset();
                     if (!ui.draggable.hasClass("newItem")) {
                         moved = true;
                         var new_item = $(ui.helper).clone().removeClass('item').addClass("newItem");
