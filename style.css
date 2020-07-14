@@ -128,17 +128,14 @@ h2{
 
 }
 
-#myTooltip {
-    position: fixed;
+#preview{
+    position:absolute;
+    overflow: visible;
     z-index: 7;
-    padding: 10px;
-    overflow-x: visible;
-    overflow-y: visible;
-    /*color: white;*/
-    /*opacity: 90%;*/
-    width: 177.6px;
-    height: 139.2px;
+    padding:5px;
+    display:none;
 }
+
 .item {
     cursor: grab;
     position: relative;

@@ -76,7 +76,6 @@ function isToggleOn() {
 }
 
 function drawArena(subjectId) {
-    console.log(document.getElementById("toggle").checked);
     //javascript does not allow simply looping through directories... once hooked up to server we don't have to hardcode filenames
     var random_images_array = ['target_airport', 'target_alley', 'target_amusementpark', 'target_aquarium', 'target_arcade',
         'target_artstudio', 'target_attic', 'target_backyard', 'target_bakery', 'target_bar', 'target_barn', 'target_bridge',
@@ -151,20 +150,35 @@ function drawArena(subjectId) {
         document.getElementById('gallery').appendChild(item);
         gallery_count++;
 
-        d3.selectAll('.item')
-            .on("mouseover", function () {
+            /* CONFIG */
+
+            xOffset = 10;
+            yOffset = 30;
+
+            // these 2 variable determine popup's distance from the cursor
+            // you might want to adjust to get the right result
+
+            /* END CONFIG */
+            $(".item").hover(function(e){
                 if (isToggleOn()) {
-                    var tooltip = d3.select('#myTooltip');
-                    tooltip.style('display', 'block');
-                    tooltip.style('left', d3.event.pageX + "px");
-                    tooltip.style('top', d3.event.pageY + "px");
-                    tooltip.html('<img src=' + this.src + ' + style="height=139.2px" width="177.6px"/>');
-                }
-            })
-            .on("mouseleave", function () {
-                var tooltip = d3.select('#myTooltip');
-                tooltip.style('display', 'none');
+                    $("body").append("<p id='preview'><img src='" + this.src + "' style=\"height=139.2px\" width=\"177.6px\" alt='Image preview'" +
+                        " />" + "</p>");
+                    $("#preview")
+                        .css("top", (e.pageY - xOffset) + "px")
+                        .css("left", (e.pageX + yOffset) + "px")
+                        .fadeIn("fast");
+                }},
+                function(){
+
+                    $("#preview").remove();
+                });
+            $(".item").mousemove(function(e){
+                $("#preview")
+                    .css("top",(e.pageY - xOffset) + "px")
+                    .css("left",(e.pageX + yOffset) + "px");
             });
+
+
 
         var moved;
         $(function () {
@@ -183,10 +197,6 @@ function drawArena(subjectId) {
 
                     $('.item').css('cursor', 'grab');
                 }
-            });
-
-            $('.item').tooltip({
-                content: "Awesome title!"
             });
 
             $("#arena").droppable({
@@ -217,21 +227,26 @@ function drawArena(subjectId) {
                         gallery_count--;
                     }
 
-                    d3.selectAll('.newItem')
-                        .on("mouseover", function (d) {
-                            if (isToggleOn()) {
-                                var tooltip = d3.select('#myTooltip');
-                                tooltip.style('display', 'block');
-                                tooltip.style('left', d3.event.pageX + "px");
-                                tooltip.style('top', d3.event.pageY + "px");
-                                tooltip.html('<img src=' + this.src + ' + style="height: 139.2px" width="177.6px"/>');
-                                tooltip.raise();
-                            }
-                        })
-                        .on("mouseleave", function (d) {
-                            var tooltip = d3.select('#myTooltip');
-                            tooltip.style('display', 'none');
-                        })
+                    $('.newItem').hover(function(e){
+                        if (isToggleOn()){
+                            xOffset = 10;
+                            yOffset = 30;
+                            $("body").append("<p id='preview'><img src='"+ this.src +"' style=\"height=139.2px\" width=\"177.6px\" alt='Image preview'" +
+                                " />" +"</p>");
+                            $("#preview")
+                                .css("top",(e.pageY - xOffset) + "px")
+                                .css("left",(e.pageX + yOffset) + "px")
+                                .fadeIn("fast");
+                        }},
+                        function(){
+
+                            $("#preview").remove();
+                        });
+                    $('.newItem').mousemove(function(e){
+                        $("#preview")
+                            .css("top",(e.pageY - xOffset) + "px")
+                            .css("left",(e.pageX + yOffset) + "px");
+                    });
                 }
             });
         });
