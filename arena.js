@@ -294,12 +294,15 @@ function drawArena(subjectId) {
 
         function writeReport(path, dict, trial_count) {
             const a = document.createElement("a");
+            console.log("The object is stringified");
             a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
                 type: "text/plain"
             }));
             a.setAttribute("download", subjectId);
             document.body.appendChild(a);
+            console.log("The object appended to the body");
             a.click();
+            console.log("click has occured");
             document.body.removeChild(a);
 
         }
