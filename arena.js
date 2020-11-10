@@ -36,6 +36,26 @@ function saveSONAId() {
 
 
 
+
+/*
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "pqrollan",
+  password: "tempPassword"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  con.query("CREATE DATABASE mydb", function (err, result) {
+    if (err) throw err;
+    console.log("Database created");
+  });
+});
+ */
+
 //#FIXME: possible alternative function with Node.js or setup server
 
 //     const fs = require('fs');
