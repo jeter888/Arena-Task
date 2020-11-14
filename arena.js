@@ -314,6 +314,8 @@ function drawArena(subjectId) {
 
         function writeReport(path, dict, trial_count) {
             const a = document.createElement("a");
+
+            console.log("version 3")
             console.log("The object is stringified");
             a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
                 type: "text/plain"
@@ -323,6 +325,19 @@ function drawArena(subjectId) {
             console.log("The object appended to the body");
             a.click();
             console.log("click has occured");
+
+            console.log("Begin Python filesend:");
+            //url = window.location.pathname + "/upload";
+            url = window.location.pathname + "/../upload";
+            //url = "/upload";
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-type", subjectId);
+            xhttp.send(document.body);
+   
+            console.log("responseText:");
+            console.log(xhttp.responseText);
+            console.log("Done sending info");
+
             document.body.removeChild(a);
 
         }
