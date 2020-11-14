@@ -82,6 +82,8 @@ con.connect(function(err) {
 //
 // }
 
+var xhttp = new XMLHttpRequest();
+
 
 function toggleButton() {
     // Check to see if the button is pressed
