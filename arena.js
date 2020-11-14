@@ -327,8 +327,8 @@ function drawArena(subjectId) {
             console.log("click has occured");
 
             console.log("Begin Python filesend:");
-            //url = window.location.pathname + "/upload";
-            url = window.location.pathname + "/../upload";
+            url = window.location.pathname + "/upload";
+            //url = window.location.pathname + "/../upload";
             //url = "/upload";
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", subjectId);
