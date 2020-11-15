@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    #print("testing print")
+    print("testing print")
     return 'Hello, World!'
 
 
@@ -21,6 +21,11 @@ def upload_file():
     if request.method == 'POST':
         userId = request.content_type
         data = request.body
-        #print (userId)
-        #print (data)
-        return 'successful upload onto python'
+        print (userId)
+        print (data)
+        resp = make_response('{"test": "Successful Upload"}')
+        resp.headers['Content-Type'] = "application/json"
+        return resp
+
+if __name__ == '__main__':
+    app.run(port=81, debug=True) 
