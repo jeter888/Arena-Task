@@ -4,8 +4,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    print("testing print")
-    return 'Hello, World!'
+    f = open("../sampleFile.txt", "a")
+    f.write("testing print\n")
+    f.close()
+    return "Hello, World"
+
 
 
 """ @app.route('/login', methods=['GET', 'POST'])
@@ -21,11 +24,16 @@ def upload_file():
     if request.method == 'POST':
         userId = request.content_type
         data = request.body
-        print (userId)
-        print (data)
+
+        f = open("../sampleFile.txt", "a")
+
+        f.write("userId: " + userId+ "\n")
+        f.write("data: " + data + "\n")
+        f.close()
+
         resp = make_response('{"test": "Successful Upload"}')
         resp.headers['Content-Type'] = "application/json"
         return resp
 
 if __name__ == '__main__':
-    app.run(port=81, debug=True) 
+    app.run(host='0.0.0.0', port=5000, debug=True) 
