@@ -36,4 +36,4 @@ def upload_file():
         return resp
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    app.run(host='192.168.99.100', port=81, debug=True) 
