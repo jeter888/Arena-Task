@@ -2,16 +2,27 @@
 from flask import Flask, request
 app = Flask(__name__)
 
+
+
+@app.route('/')
+def start_program():
+    f = open("sampleFile.txt", "a")
+    f.write("testing print\n")
+    f.close()
+    return render_template('index.html')
+
+
+
+""" 
+
 @app.route('/')
 def hello_world():
     f = open("../sampleFile.txt", "a")
     f.write("testing print\n")
     f.close()
     return "Hello, World"
-
-
-
-""" @app.route('/login', methods=['GET', 'POST'])
+    
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         return do_the_login()
@@ -35,5 +46,5 @@ def upload_file():
         resp.headers['Content-Type'] = "application/json"
         return resp
 
-if __name__ == '__main__':
-    app.run(host='192.168.99.100', port=81, debug=True) 
+""" if __name__ == '__main__':
+    app.run(host='192.168.99.100', port=82, threaded=True)  """
