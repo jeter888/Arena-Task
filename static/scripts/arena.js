@@ -136,7 +136,7 @@ function drawArena(subjectId) {
             uniqueImg = new Set();
             do {
                 do {
-                    img = getRandomImage(random_images_array, 'data/arena_scene_examples/');
+                    img = getRandomImage(random_images_array, 'static/arena_scene_examples/');
                     var initialSize = uniqueImg.size; //should start at zero and be of size i after loop
                     uniqueImg.add(img);
 

@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
-    <link href="../bootstrap.css" rel="stylesheet">
-    <link href="../titatoggle-dist.css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='styles/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='styles/titatoggle-dist.css') }}" rel="stylesheet">
 <!--    <link href="_titatoggle.scss" rel="stylesheet">-->
-    <link href="../style.css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='styles/style.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Also include jQueryUI -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -68,8 +68,8 @@
     <div id="message">This task is for screens of desktop sizes. Please resize your window or use a device with a larger screen.</div>
 </main>
 
-<script src="../scripts/d3.v4.js"></script>
-<script src="../arena.js"></script>
+<script src="{{ url_for('static',filename='scripts/d3.v4.js') }}"></script>
+<script src="{{ url_for('static',filename='scripts/arena.js') }}"></script>
 
 
 </html>

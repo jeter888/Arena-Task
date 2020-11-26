@@ -1,15 +1,16 @@
 # app.py
 from flask import Flask, request, render_template
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 
 
 @app.route('/')
 def start_program():
+    return render_template('index.html')
 """ f = open("sampleFile.txt", "a")
     f.write("testing print\n")
     f.close() """
-    return render_template('index.html')
+    
 
 
 
