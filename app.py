@@ -1,14 +1,14 @@
 # app.py
-from flask import Flask, request
+from flask import Flask, request, render_template
 app = Flask(__name__)
 
 
 
 @app.route('/')
 def start_program():
-    f = open("sampleFile.txt", "a")
+""" f = open("sampleFile.txt", "a")
     f.write("testing print\n")
-    f.close()
+    f.close() """
     return render_template('index.html')
 
 
@@ -29,7 +29,7 @@ def login():
     else:
         return show_the_login_form() """
 
-
+""" 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -44,7 +44,10 @@ def upload_file():
 
         resp = make_response('{"test": "Successful Upload"}')
         resp.headers['Content-Type'] = "application/json"
-        return resp
+        return resp """
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
 """ if __name__ == '__main__':
     app.run(host='192.168.99.100', port=82, threaded=True)  """
