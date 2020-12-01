@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, make_response
 app = Flask(__name__, static_url_path='/static')
 
 
@@ -30,22 +30,30 @@ def login():
     else:
         return show_the_login_form() """
 
-""" 
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        resp = make_response('{"test": "Successful Upload"}')
+        return resp
+
+        '''
         userId = request.content_type
         data = request.body
 
+        """
         f = open("../sampleFile.txt", "a")
 
         f.write("userId: " + userId+ "\n")
         f.write("data: " + data + "\n")
         f.close()
+        """
 
         resp = make_response('{"test": "Successful Upload"}')
         resp.headers['Content-Type'] = "application/json"
-        return resp """
+        return resp
+
+        '''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
