@@ -317,16 +317,13 @@ function drawArena(subjectId) {
         function writeReport(path, dict, trial_count) {
             const a = document.createElement("a");
 
-            console.log("version 28 live flask! make_responsen need response")
-            console.log("The object is stringified");
+            console.log("version 31 simple jsonify")
             a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
                 type: "text/plain"
             }));
             a.setAttribute("download", subjectId);
             document.body.appendChild(a);
-            console.log("The object appended to the body");
             a.click();
-            console.log("click has occured");
 
             console.log("Begin Python filesend:");
             console.log("//192.168.99.100:5001/upload")
@@ -334,14 +331,29 @@ function drawArena(subjectId) {
             url = ("//192.168.99.100:5001/upload");
 
             xhttp.open("POST", url, true);
-            xhttp.setRequestHeader("Content-type", subjectId);
-            xhttp.send(document.body);
+            xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 
+            console.log(JSON.stringify(dict, null, 2))
+            xhttp.send(JSON.stringify(dict, null, 2));
+
+            xhttp.onloadend = function () {
+                if (xhttp.readyState === xhttp.DONE) {
+                    if (xhttp.status === 200) {
+                        console.log("responseText:");
+                        console.log(xhttp.response);
+                        console.log(xhttp.responseText);
+                    }
+                }
+            };
+
+            console.log("Done sending info");
+
+            /*
             console.log("responseText:");
             console.log(xhttp.responseText);
             console.log("Done sending info");
-
+            */
             document.body.removeChild(a);
 
         }

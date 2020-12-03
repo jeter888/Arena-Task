@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, request, render_template, make_response
+from flask import Flask, request, render_template, make_response, jsonify
 app = Flask(__name__, static_url_path='/static')
 
 
@@ -34,7 +34,17 @@ def login():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        resp = make_response('{"test": "Successful Upload"}')
+        data = request.json
+        data = "data"
+
+        resp = make_response('{"test": "Successful Upload", "message": "'+data+'"}')
+        """
+        data = "data"
+        resp = make_response(
+            jsonify({"test": "Successful Upload", 
+                    "userID": data})
+        )
+        """
         return resp
 
         '''
