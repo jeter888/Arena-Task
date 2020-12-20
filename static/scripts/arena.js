@@ -317,7 +317,7 @@ function drawArena(subjectId) {
         function writeReport(path, dict, trial_count) {
             const a = document.createElement("a");
 
-            console.log("version 31 simple jsonify")
+            console.log("version 2.0 original commands")
             a.href = URL.createObjectURL(new Blob([JSON.stringify(dict, null, 2)], {
                 type: "text/plain"
             }));
@@ -326,16 +326,19 @@ function drawArena(subjectId) {
             a.click();
 
             console.log("Begin Python filesend:");
-            console.log("//192.168.99.100:5001/upload")
+            console.log("//192.168.99.100:82/upload")
             //console.log("//127.0.0.1:5000/upload")
-            url = ("//192.168.99.100:5001/upload");
+            url = ("//192.168.99.100:82/upload");
 
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 
-            console.log(JSON.stringify(dict, null, 2))
+            
             xhttp.send(JSON.stringify(dict, null, 2));
+            console.log(JSON.stringify(dict, null, 2));
+            console.log((dict, null, 2))
+            //xhttp.send((dict, null, 2));
 
             xhttp.onloadend = function () {
                 if (xhttp.readyState === xhttp.DONE) {
