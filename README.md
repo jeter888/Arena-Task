@@ -69,3 +69,9 @@ docker container rm $(docker container ls -aq)
 ^These commands allow you to stop and remove the container so you can run a
 new version. $(docker container ls -aq) gets a list of container ids
 
+# Error code 1, no space left on device: 
+If you ever get this error it's probably because you've rebuild the project
+many times. Use the command below to clear unusued space then rebuild the
+project.
+
+docker image prune -f

@@ -1,18 +1,40 @@
 # app.py
 from flask import Flask, request, render_template, make_response, jsonify
 import sys
+
+import glob
+import pprint
 app = Flask(__name__, static_url_path='/static')
 
 
 
 
+def init_array():
+    print("Init Array", file=sys.stderr)
+    #print(glob.glob("/*"), file=sys.stderr)
+    #print("Try /static/arena_scene_examples/", file=sys.stderr)
+    #print(glob.glob("/static/arena_scene_examples/*"), file=sys.stderr)
+    global urlDictionary
+    if 'urlDictionary' not in globals():
+        urlDictionary = {}
+    i = 0
+    for item in glob.glob("/static/arena_scene_examples/*"):
+        #print(item, file=sys.stderr)
+        urlDictionary[i]= item
+        urlDictionary[item]= i
+        i+=1
+    print(urlDictionary, file=sys.stderr)
+
+def getDistance(x1, y1, x2, y2):
+    #euclidean distance
+    squared = (x1-x2)**2 + (y1-y2)**2
+    return squared**(1/2)
 
 @app.route('/')
 def start_program():
+    init_array()
     return render_template('index.html')
-""" f = open("sampleFile.txt", "a")
-    f.write("testing print\n")
-    f.close() """
+
     
 
 
@@ -45,11 +67,13 @@ def upload_file():
         data = request.json
         for key, value in data.items():
             
-            print(key, ' :', value, file=sys.stderr)
-            customString=customString+key+ "-> ["
-            print('print before values: ',customString, file=sys.stderr)
+            start = key.find("/static")
+            newKey = key[start:]
+            global urlDictionary
+            index= urlDictionary[newKey]
+
+            customString=customString+str(index)+ "-> ["
             for x in range(len(value)): 
-                print('finding value: ',value[x], file=sys.stderr)
                 customString= customString+str(value[x])+","
             customString= customString+ "]\n"
 
