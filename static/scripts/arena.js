@@ -344,7 +344,7 @@ function drawArena(subjectId) {
                 if (xhttp.readyState === xhttp.DONE) {
                     if (xhttp.status === 200) {
                         console.log("responseText:");
-                        console.log(xhttp.response);
+                        //console.log(xhttp.response);
                         console.log(xhttp.responseText);
                     }
                 }
