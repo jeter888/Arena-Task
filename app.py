@@ -36,10 +36,41 @@ def init_array():
     for row in distanceMatrix:
         print(row, file=sys.stderr)
 
+    for item in glob.glob("/static/matrices/*"):
+        print(item, file=sys.stderr)
+        fileName= "/static/matrices/sampleMatrix.txt"
+        print(item==fileName, file=sys.stderr)
+
+    fileName= "/static/matrices/sampleMatrix.txt"
+    print("writing to: ",fileName, file=sys.stderr)
+
+    try:
+        matrixFile= open(fileName, "w+")
+        matrixFile.write("text: \n")
+        #matrixFile.write(str(distanceMatrix))
+        print("wrote to: ",fileName, file=sys.stderr)
+        matrixFile.close()
+
+        matrixFile= open(fileName, "w+")
+        print("About to read: ",fileName, file=sys.stderr)
+        print(matrixFile.read(), file=sys.stderr)
+        print("Read from: ",fileName, file=sys.stderr)
+        matrixFile.close()   
+    except:
+        print("cant open file", file=sys.stderr)
+
+
+
+
+
 def getDistance(x1, y1, x2, y2):
     #euclidean distance
     squared = (x1-x2)**2 + (y1-y2)**2
     return round(squared**(1/2), 2)
+
+
+
+
 
 @app.route('/')
 def start_program():
@@ -47,24 +78,6 @@ def start_program():
     return render_template('index.html')
 
     
-
-
-
-""" 
-
-@app.route('/')
-def hello_world():
-    f = open("../sampleFile.txt", "a")
-    f.write("testing print\n")
-    f.close()
-    return "Hello, World"
-    
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return do_the_login()
-    else:
-        return show_the_login_form() """
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -116,17 +129,6 @@ def upload_file():
 
 
 
-        """
-        data = request.values
-        print("values: "+data, file=sys.stderr)
-
-        data = request.form
-        print("json: "+data, file=sys.stderr)
-
-        data = request.files
-        print("values: "+data, file=sys.stderr)
-        """
-
         for row in distanceMatrix:
             print(row, file=sys.stderr)
 
@@ -146,23 +148,7 @@ def upload_file():
         """
         return resp
 
-        '''
-        userId = request.content_type
-        data = request.body
 
-        """
-        f = open("../sampleFile.txt", "a")
-
-        f.write("userId: " + userId+ "\n")
-        f.write("data: " + data + "\n")
-        f.close()
-        """
-
-        resp = make_response('{"test": "Successful Upload"}')
-        resp.headers['Content-Type'] = "application/json"
-        return resp
-
-        '''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)

@@ -36,4 +36,5 @@ FROM python:3.6.1-alpine
 ADD . .
 RUN pip install -r requirements.txt
 RUN pip install requests
+VOLUME [ "/static/matrices/" ]
 CMD ["python","app.py"]
