@@ -36,21 +36,30 @@ def init_array():
     for row in distanceMatrix:
         print(row, file=sys.stderr)
 
-    for item in glob.glob("/static/matrices/*"):
+    for item in glob.glob("/matrices/*"):
         print(item, file=sys.stderr)
-        fileName= "/static/matrices/sampleMatrix.txt"
+        fileName= "/matrices/sampleMatrix.txt"
         print(item==fileName, file=sys.stderr)
 
-    fileName= "/static/matrices/sampleMatrix.txt"
+    fileName= "/matrices/sampleMatrix.txt"
     print("writing to: ",fileName, file=sys.stderr)
 
     try:
+        #READ
+        matrixFile= open(fileName, "w+")
+        print("About to read: ",fileName, file=sys.stderr)
+        print(matrixFile.read(), file=sys.stderr)
+        print("Read from: ",fileName, file=sys.stderr)
+        matrixFile.close() 
+
+        #WRITE
         matrixFile= open(fileName, "w+")
         matrixFile.write("text: \n")
         #matrixFile.write(str(distanceMatrix))
         print("wrote to: ",fileName, file=sys.stderr)
         matrixFile.close()
 
+        #READ
         matrixFile= open(fileName, "w+")
         print("About to read: ",fileName, file=sys.stderr)
         print(matrixFile.read(), file=sys.stderr)

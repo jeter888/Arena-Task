@@ -7,6 +7,6 @@ services:
       - 82:80
     container_name: arenatask
     volumes:
-      - ~Perry Rolland/Desktop/Arena-Task/static/matrices/:/static/matrices/
+      - ~Perry Rolland/Desktop/Arena-Task/matrices/:/matrices/
 
       #volumes:#arenatask:#external: true
