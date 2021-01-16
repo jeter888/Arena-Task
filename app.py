@@ -36,13 +36,13 @@ def init_array():
     for row in distanceMatrix:
         print(row, file=sys.stderr)
 
-    for item in glob.glob("/matrices/*"):
+    for item in glob.glob("./matrices/*"):
         print(item, file=sys.stderr)
-        fileName= "/matrices/sampleMatrix.txt"
+        fileName= "./matrices/sampleMatrix.txt"
         print(item==fileName, file=sys.stderr)
 
-    fileName= "/matrices/sampleMatrix.txt"
-    print("writing to: ",fileName, file=sys.stderr)
+    fileName= "./matrices/sampleMatrix.txt"
+    print("Final path chosen: ",fileName, file=sys.stderr)
 
     try:
         #READ
