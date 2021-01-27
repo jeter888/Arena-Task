@@ -36,31 +36,31 @@ def init_array():
     for row in distanceMatrix:
         print(row, file=sys.stderr)
 
-    for item in glob.glob("./matrices/*"):
+    for item in glob.glob("/matrices/*"):
         print(item, file=sys.stderr)
-        fileName= "./matrices/sampleMatrix.txt"
+        fileName= "/matrices/sampleMatrix.txt"
         print(item==fileName, file=sys.stderr)
 
-    fileName= "./matrices/sampleMatrix.txt"
+    fileName= "/matrices/sampleMatrix.txt"
     print("Final path chosen: ",fileName, file=sys.stderr)
 
     try:
         #READ
-        matrixFile= open(fileName, "w+")
+        matrixFile= open(fileName, "r+")
         print("About to read: ",fileName, file=sys.stderr)
         print(matrixFile.read(), file=sys.stderr)
         print("Read from: ",fileName, file=sys.stderr)
         matrixFile.close() 
 
         #WRITE
-        matrixFile= open(fileName, "w+")
-        matrixFile.write("text: \n")
-        #matrixFile.write(str(distanceMatrix))
+        matrixFile= open(fileName, "r+")
+        matrixFile.write("Matrix: \n")
+        matrixFile.write(str(distanceMatrix))
         print("wrote to: ",fileName, file=sys.stderr)
         matrixFile.close()
 
         #READ
-        matrixFile= open(fileName, "w+")
+        matrixFile= open(fileName, "r+")
         print("About to read: ",fileName, file=sys.stderr)
         print(matrixFile.read(), file=sys.stderr)
         print("Read from: ",fileName, file=sys.stderr)
@@ -145,6 +145,16 @@ def upload_file():
         print(str(distanceMatrix), file=sys.stderr)
 
         
+        fileName= "/matrices/sampleMatrix.txt"
+        print("Final path chosen: ",fileName, file=sys.stderr)
+        
+        #WRITE
+        matrixFile= open(fileName, "r+")
+        matrixFile.write("Matrix: \n")
+        matrixFile.write(str(distanceMatrix))
+        print("wrote to: ",fileName, file=sys.stderr)
+        matrixFile.close()
+
 
         resp = make_response('{"test": "Successful Upload", "message": "'+customString+'", \
                 "matrix": "'+ str(distanceMatrix) +'" }')
