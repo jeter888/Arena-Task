@@ -332,13 +332,13 @@ function drawArena(subjectId) {
 
             xhttp.open("POST", url, true);
             xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
+            //xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             
-            xhttp.send(JSON.stringify(dict, null, 2));
-            console.log(JSON.stringify(dict, null, 2));
-            console.log((dict, null, 2))
-            //xhttp.send((dict, null, 2));
+            //xhttp.send(JSON.stringify(dict, null, 2));
+            console.log(' {\"user\":\"USERID\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
+            xhttp.send(' {\"user\":\"USERID\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
+
 
             xhttp.onloadend = function () {
                 if (xhttp.readyState === xhttp.DONE) {

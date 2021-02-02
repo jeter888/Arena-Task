@@ -1,7 +1,7 @@
 # app.py
 from flask import Flask, request, render_template, make_response, jsonify
 import sys
-
+import json
 import glob
 import pprint
 app = Flask(__name__, static_url_path='/static')
@@ -11,14 +11,12 @@ app = Flask(__name__, static_url_path='/static')
 
 def init_array():
     print("Init Array", file=sys.stderr)
-    #print(glob.glob("/*"), file=sys.stderr)
-    #print("Try /static/arena_scene_examples/", file=sys.stderr)
     #print(glob.glob("/static/arena_scene_examples/*"), file=sys.stderr)
+
     global urlDictionary
     if 'urlDictionary' not in globals():
         urlDictionary = {}
 
-    
 
     i = 0
     for item in glob.glob("/static/arena_scene_examples/*"):
@@ -30,30 +28,18 @@ def init_array():
 
     #i is max
     global distanceMatrix
-    if 'distanceMatrix' not in globals():
-        distanceMatrix = [[-1 for row in range(i)] for column in range(i)]
+    distanceMatrix = [[-1 for row in range(i)] for column in range(i)]
 
-    for row in distanceMatrix:
-        print(row, file=sys.stderr)
-
-    for item in glob.glob("/matrices/*"):
-        print(item, file=sys.stderr)
-        fileName= "/matrices/sampleMatrix.txt"
-        print(item==fileName, file=sys.stderr)
 
     fileName= "/matrices/sampleMatrix.txt"
     print("Final path chosen: ",fileName, file=sys.stderr)
 
     try:
-        #READ
-        matrixFile= open(fileName, "r+")
-        print("About to read: ",fileName, file=sys.stderr)
-        print(matrixFile.read(), file=sys.stderr)
-        print("Read from: ",fileName, file=sys.stderr)
-        matrixFile.close() 
-
         #WRITE
         matrixFile= open(fileName, "r+")
+
+        #Clears the file for every new session
+        matrixFile.truncate(0)
         matrixFile.write("Matrix: \n")
         matrixFile.write(str(distanceMatrix))
         print("wrote to: ",fileName, file=sys.stderr)
@@ -96,7 +82,22 @@ def upload_file():
         # Basic string build
         customString=""
         print('This is err output', file=sys.stderr)
-        data = request.json
+        print('Request: ', request, file=sys.stderr)
+        print('Request data: ', request.get_json(), file=sys.stderr)
+        print('Data finished ', file=sys.stderr)
+        #print('Request user: ', request.user, file=sys.stderr)
+
+        print('Parsing body', file=sys.stderr)
+        body = request.get_json()
+        #body= json.loads(requestBody)
+        #print("json loaded", file=sys.stderr)
+        data = body.get('data')
+        userID = body.get('user')
+        
+        print('user: ', userID, file=sys.stderr)
+
+        print("json: ", data, file=sys.stderr)
+
         for key, value in data.items():
             
             start = key.find("/static")
@@ -109,7 +110,7 @@ def upload_file():
                 customString= customString+str(value[x])+","
             customString= customString+ "]\n"
 
-        print("json: ", data, file=sys.stderr)
+        
         print('Building simple response:', file=sys.stderr)
         print(customString, file=sys.stderr)
 
@@ -136,21 +137,13 @@ def upload_file():
                 distanceMatrix[index][index2]= distance
                 distanceMatrix[index2][index]= distance
 
-
-
-        for row in distanceMatrix:
-            print(row, file=sys.stderr)
-
-        print("Matrix printing: ", file=sys.stderr)
-        print(str(distanceMatrix), file=sys.stderr)
-
         
         fileName= "/matrices/sampleMatrix.txt"
         print("Final path chosen: ",fileName, file=sys.stderr)
         
         #WRITE
         matrixFile= open(fileName, "r+")
-        matrixFile.write("Matrix: \n")
+        matrixFile.write(userID+": \n")
         matrixFile.write(str(distanceMatrix))
         print("wrote to: ",fileName, file=sys.stderr)
         matrixFile.close()
