@@ -336,8 +336,8 @@ function drawArena(subjectId) {
 
             
             //xhttp.send(JSON.stringify(dict, null, 2));
-            console.log(' {\"user\":\"USERID\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
-            xhttp.send(' {\"user\":\"USERID\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
+            console.log(' {\"user\":\"'+subjectId+'\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
+            xhttp.send(' {\"user\":\"'+subjectId+'\", \"data\":'+JSON.stringify(dict, null, 2)+ '}' );
 
 
             xhttp.onloadend = function () {
