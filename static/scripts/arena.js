@@ -129,6 +129,29 @@ function drawArena(subjectId) {
     function drawImages() {
         var cloned_items = $(".newItem");
         var items = $(".item");
+
+
+        console.log("//192.168.99.100:82/drawImages")
+        //console.log("//127.0.0.1:5000/upload")
+        var url = ("//192.168.99.100:82/drawImages");
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        xhttp.send(' {\"userImages\":\"'+subjectId+'\"}' );
+
+        xhttp.onloadend = function () {
+            if (xhttp.readyState === xhttp.DONE) {
+                if (xhttp.status === 200) {
+                    console.log("responseText:");
+                    //console.log(xhttp.response);
+                    console.log(xhttp.responseText);
+                }
+            }
+        };
+
+        console.log("Done sending draw command");
+
+
+
         if (gallery_count == 0) {
             cloned_items.remove();
             items.remove();
@@ -143,7 +166,7 @@ function drawArena(subjectId) {
                 } while (uniqueImg.size == initialSize);
                 appendDraggableImage(img);
                 i++;
-            } while (i <= 5); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
+            } while (i <= 10); //sets size of gallery & number of pictures. Integer cannot exceed random_images_array size
         } else {
             alert("You still have one or more scenes left to arrange.");
         }

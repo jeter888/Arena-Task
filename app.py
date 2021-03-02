@@ -162,6 +162,73 @@ def upload_file():
 
 
 
+
+
+
+
+
+@app.route('/drawImages', methods=['GET', 'POST'])
+def getImages():
+    if request.method == 'POST':
+        
+        # Basic string build
+        customString="\"Responding back to Images Call\""
+        print('This is err output', file=sys.stderr)
+        print('Request: ', request, file=sys.stderr)
+        print('Request data: ', request.get_json(), file=sys.stderr)
+        print('Data finished ', file=sys.stderr)
+        #print('Request user: ', request.user, file=sys.stderr)
+
+        print('Parsing body', file=sys.stderr)
+        body = request.get_json()
+        #body= json.loads(requestBody)
+        #print("json loaded", file=sys.stderr)
+        incomingMessage = body.get('userImages')
+        
+        print('user: ', incomingMessage, file=sys.stderr)
+
+        print('Building simple response:', file=sys.stderr)
+        print(customString, file=sys.stderr)
+
+        global distanceMatrix
+        global urlDictionary
+        returnIndex = []
+
+        print('confirming indexing:', file=sys.stderr)
+        print('distanceMatrix size:',len(distanceMatrix), file=sys.stderr)
+        print('distanceMatrix[0] size:',len(distanceMatrix[0]), file=sys.stderr)
+
+        #
+        #   Choosing the images to put in the arena
+        #
+        imagesCount = 15
+        for i in range(0,len(distanceMatrix)):
+            for j in range(0,len(distanceMatrix[i])):
+                if distanceMatrix[i][j]== -1:
+                    if len(returnIndex) == 0:
+                        returnIndex.append(i)
+                        imagesCount-=1
+                    if j not in returnIndex and imagesCount>0:
+                        returnIndex.append(j)
+                        imagesCount-=1
+            if imagesCount<=0:
+                break
+
+        
+        print(returnIndex, file=sys.stderr)
+        returnUrls=[]
+        for i in returnIndex:
+            returnUrls.append(urlDictionary.get(i))
+
+        print(returnUrls, file=sys.stderr)
+
+
+        resp = make_response('{"test": "Successful drawImages Call", "message": '+customString+'}')
+
+        return resp
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
 
