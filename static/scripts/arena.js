@@ -138,20 +138,49 @@ function drawArena(subjectId) {
         xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         xhttp.send(' {\"userImages\":\"'+subjectId+'\"}' );
 
+        var responseText = ""
         xhttp.onloadend = function () {
             if (xhttp.readyState === xhttp.DONE) {
                 if (xhttp.status === 200) {
                     console.log("responseText:");
                     //console.log(xhttp.response);
-                    console.log(xhttp.responseText);
+                    responseText= xhttp.responseText;
+                    console.log(responseText);
+                    var responseObject= JSON.parse(responseText);
+                    var urls= responseObject.urls;
+                    console.log(urls);
+                    
+                    console.log("Done getting draw command");
+
+                    
+                    if (gallery_count == 0) {
+                        cloned_items.remove();
+                        items.remove();
+                        var i = 1;
+                        uniqueImg = new Set();
+
+                        console.log("Printing each url:");
+                        for (x in urls){
+                            console.log(urls[x]);
+                            appendDraggableImage(urls[x]);
+                        }
+
+
+                    } else {
+                        alert("You still have one or more scenes left to arrange.");
+                    }
+                    
                 }
             }
         };
-
-        console.log("Done sending draw command");
-
+        
 
 
+        /*
+        *
+        * Old system of getting random images before calling on pyhton to
+        * manage it
+        * 
         if (gallery_count == 0) {
             cloned_items.remove();
             items.remove();
@@ -170,6 +199,8 @@ function drawArena(subjectId) {
         } else {
             alert("You still have one or more scenes left to arrange.");
         }
+
+        */
     }
 
     drawImages(); //first draw-- initial trial

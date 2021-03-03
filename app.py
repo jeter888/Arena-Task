@@ -220,10 +220,22 @@ def getImages():
         for i in returnIndex:
             returnUrls.append(urlDictionary.get(i))
 
-        print(returnUrls, file=sys.stderr)
+        
+        customString='\"urls\": {'
+        count = 1
+        for urls in returnUrls:
+            if count>1:
+                customString+=',\n '
+            customString+= '\"url'+str(count)+'\": \"' 
+            customString+= str(urls) + '\"'
+            count+=1
+
+        customString+='}'
+        print(customString, file=sys.stderr)
 
 
-        resp = make_response('{"test": "Successful drawImages Call", "message": '+customString+'}')
+
+        resp = make_response('{"test": "Successful drawImages Call", '+customString+'}')
 
         return resp
 
