@@ -119,8 +119,8 @@ function drawArena(subjectId) {
         random_images_array[n] = random_images_array[n] + '.png';
     }
 
-    var img;
-    var uniqueImg;
+    //var img;
+    //var uniqueImg;
     var dict = {};
     var gallery_count = 0;
 
@@ -132,7 +132,6 @@ function drawArena(subjectId) {
 
 
         console.log("//192.168.99.100:82/drawImages")
-        //console.log("//127.0.0.1:5000/upload")
         var url = ("//192.168.99.100:82/drawImages");
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -142,21 +141,16 @@ function drawArena(subjectId) {
         xhttp.onloadend = function () {
             if (xhttp.readyState === xhttp.DONE) {
                 if (xhttp.status === 200) {
-                    console.log("responseText:");
-                    //console.log(xhttp.response);
-                    responseText= xhttp.responseText;
-                    console.log(responseText);
-                    var responseObject= JSON.parse(responseText);
+
+                    var responseObject= JSON.parse(xhttp.responseText);
                     var urls= responseObject.urls;
                     console.log(urls);
-                    
-                    console.log("Done getting draw command");
+
 
                     
                     if (gallery_count == 0) {
                         cloned_items.remove();
                         items.remove();
-                        var i = 1;
                         uniqueImg = new Set();
 
                         console.log("Printing each url:");
@@ -404,13 +398,6 @@ function drawArena(subjectId) {
                 }
             };
 
-            console.log("Done sending info");
-
-            /*
-            console.log("responseText:");
-            console.log(xhttp.responseText);
-            console.log("Done sending info");
-            */
             document.body.removeChild(a);
 
         }

@@ -42,14 +42,11 @@ def init_array():
         matrixFile.truncate(0)
         matrixFile.write("Matrix: \n")
         matrixFile.write(str(distanceMatrix))
-        print("wrote to: ",fileName, file=sys.stderr)
         matrixFile.close()
 
         #READ
         matrixFile= open(fileName, "r+")
-        print("About to read: ",fileName, file=sys.stderr)
         print(matrixFile.read(), file=sys.stderr)
-        print("Read from: ",fileName, file=sys.stderr)
         matrixFile.close()   
     except:
         print("cant open file", file=sys.stderr)
@@ -81,16 +78,8 @@ def upload_file():
         
         # Basic string build
         customString=""
-        print('This is err output', file=sys.stderr)
-        print('Request: ', request, file=sys.stderr)
         print('Request data: ', request.get_json(), file=sys.stderr)
-        print('Data finished ', file=sys.stderr)
-        #print('Request user: ', request.user, file=sys.stderr)
-
-        print('Parsing body', file=sys.stderr)
         body = request.get_json()
-        #body= json.loads(requestBody)
-        #print("json loaded", file=sys.stderr)
         data = body.get('data')
         userID = body.get('user')
         
@@ -125,7 +114,6 @@ def upload_file():
 
             for key2, value2 in data.items():
                 if(key==key2):
-                    print("continue",  file=sys.stderr)
                     continue
                 start2 = key2.find("/static")
                 newKey2 = key2[start:]
@@ -172,31 +160,15 @@ def getImages():
     if request.method == 'POST':
         
         # Basic string build
-        customString="\"Responding back to Images Call\""
-        print('This is err output', file=sys.stderr)
-        print('Request: ', request, file=sys.stderr)
         print('Request data: ', request.get_json(), file=sys.stderr)
-        print('Data finished ', file=sys.stderr)
-        #print('Request user: ', request.user, file=sys.stderr)
-
-        print('Parsing body', file=sys.stderr)
         body = request.get_json()
-        #body= json.loads(requestBody)
-        #print("json loaded", file=sys.stderr)
         incomingMessage = body.get('userImages')
         
         print('user: ', incomingMessage, file=sys.stderr)
 
-        print('Building simple response:', file=sys.stderr)
-        print(customString, file=sys.stderr)
-
         global distanceMatrix
         global urlDictionary
         returnIndex = []
-
-        print('confirming indexing:', file=sys.stderr)
-        print('distanceMatrix size:',len(distanceMatrix), file=sys.stderr)
-        print('distanceMatrix[0] size:',len(distanceMatrix[0]), file=sys.stderr)
 
         #
         #   Choosing the images to put in the arena

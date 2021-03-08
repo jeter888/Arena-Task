@@ -18,19 +18,22 @@ The Weakest" Algorithm in place of this. I have commented in the code where
 this should happen.
  
 
- # Arena-Task- Flask Implementation (12/19/20)
+ # Arena-Task- Flask Implementation (3/8/21)
 In order to use python on the data, we chose to host the wesite using
 Flask, a free python repository. This allows us to do easy POST and GET
 requests to the back end.
 
-In order to get this to work a forces file structure is required:
+In order to get this to work we MUST use the following file structure:
 
+|- matrices
+    -sampleMatrix.txt
 |- static 
     -arena_scene_ecamples (subfolder with images)
     -scripts (subfolder with all java script)
     -styles (subfolder with all css files)
 |- templates (all html files)
     -index.html 
+|- docker-compose.yml (sets up volumes and easy docker-compose command)
 |- dockerfile (sets up the docker hosting)
 |- requirements.txt (for the dockerfile)
 |- app.py (manages the server)
@@ -42,12 +45,30 @@ To reach a url, you chose 'staic' for all the js and cc, then you enter the
 url with respect to the static folder.
 
 Commands to run:
-1) Naviage to the repository with the most up to date code. 
-2) Build the image for docker to run 
+1) Naviage to the repository with the most up to date code.
+
+2)  Build and run the docker image
+  Command: docker-compuse up --build
+    This docker-compose notation allows use to use volumes which are used as
+    a pipe from the python to the sampleMatrix.txt. This allows us to write
+    to the file.
+    The docker-compose file defines the port we will use, 82.
+    The python defines the port it works in (at the bottom), 80.
+
+    --build is curcial to build the most up to date image with the code updated
+    in whatever local repository. This will use the LOCAL code, not code on
+    github so make sure to pull from the branch first.
+
+    The terminal then displays any python error messages, useful for debugging
+
+-------------------------------------------------------------------------
+OLD COMMANDS for before volumes were implemented. This is for any builds in
+2020.
+2b) Build the image for docker to run 
   Command: docker build -t arenatask .   
 The period is important, it specifies you are running it from thecurrent directory.
 
-2) run the image with docker  
+3b) run the image with docker  
   Command: docker run -p 82:80 -d arenatask:latest 
    -p allows you to specify the port. Port 82 is your choice for where to
    send the site. You can't have two images running on the same port.
@@ -56,9 +77,13 @@ The period is important, it specifies you are running it from thecurrent directo
    -d allows you to run it in detached. This means thei mage will keep
    running even if you close you terminal.
 
-3) View the site:
+---------------------------------------------------------------
+
+4) View the site:
 http://192.168.99.100:82/
-:82 would be changed to the left port you chose in the last command
+
+5) Using the docker-compose command means we dont have to stop the image.
+   Else refer to "container stop" and "container rm" below
 
 # Arena-Task- Useful Docker Commands 
 docker ps  (lets you see all running images and their ids)
@@ -75,3 +100,12 @@ many times. Use the command below to clear unusued space then rebuild the
 project.
 
 docker image prune -f
+
+
+# POST commands used in python
+
+url/updload - This url uploads all the image locations and updates the
+matrix. 
+
+url/drawImages - This gets new images to be placed by the user based on the
+current matrix. Currently is NOT random and is biased
