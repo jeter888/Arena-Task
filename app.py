@@ -30,6 +30,9 @@ def init_array():
     global distanceMatrix
     distanceMatrix = [[-1 for row in range(i)] for column in range(i)]
 
+    global weightMatrix
+    weightMatrix = [[-1 for row in range(i)] for column in range(i)]
+
 
     fileName= "/matrices/sampleMatrix.txt"
     print("Final path chosen: ",fileName, file=sys.stderr)
@@ -40,8 +43,11 @@ def init_array():
 
         #Clears the file for every new session
         matrixFile.truncate(0)
-        matrixFile.write("Matrix: \n")
+        matrixFile.write("Empty Matrix, no data: \n")
         matrixFile.write(str(distanceMatrix))
+
+        matrixFile.write("\n Evidence Weight Matrix: \n")
+        matrixFile.write(str(weightMatrix))
         matrixFile.close()
 
         #READ
@@ -133,6 +139,11 @@ def upload_file():
         matrixFile= open(fileName, "r+")
         matrixFile.write(userID+": \n")
         matrixFile.write(str(distanceMatrix))
+
+        global weightMatrix
+        matrixFile.write("\n\n\nEvidence Weight Matrix: \n")
+        matrixFile.write(str(weightMatrix))
+
         print("wrote to: ",fileName, file=sys.stderr)
         matrixFile.close()
 
