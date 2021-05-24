@@ -334,6 +334,8 @@ function drawArena(subjectId) {
             getFinalPositions();
             if (gallery_count == 0) {
                 writeReport("SONA_data", dict, trial_count); //*this MUST go before the following for-loop in order to save positions of previous trial*
+
+                setTimeout(10000);
                 trial_count++;
                 //remove scenes in dict from previous trial to reset to empty dict for scenes in new trial
                 for (var i = 0; i < cloned_items.length; i++) {
@@ -399,6 +401,7 @@ function drawArena(subjectId) {
             };
 
             document.body.removeChild(a);
+            return "all done"
 
         }
 

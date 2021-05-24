@@ -28,10 +28,10 @@ def init_array():
 
     #i is max
     global distanceMatrix
-    distanceMatrix = [[-1 for row in range(i)] for column in range(i)]
+    distanceMatrix = [[0 for row in range(i)] for column in range(i)]
 
     global weightMatrix
-    weightMatrix = [[-1 for row in range(i)] for column in range(i)]
+    weightMatrix = [[0 for row in range(i)] for column in range(i)]
 
 
     fileName= "/matrices/sampleMatrix.txt"
@@ -113,6 +113,7 @@ def upload_file():
         for key, value in data.items():
 
             global distanceMatrix
+            global weightMatrix
             
             start = key.find("/static")
             newKey = key[start:]
@@ -122,14 +123,20 @@ def upload_file():
                 if(key==key2):
                     continue
                 start2 = key2.find("/static")
-                newKey2 = key2[start:]
+                newKey2 = key2[start2:]
                 index2= urlDictionary[newKey2]
 
                 distance= getDistance(int(value[0]), int(value[1]), int(value2[0]), int(value2[1]))
 
-                print("Disance between ",index," and ",index2,": ",distance, file=sys.stderr)
-                distanceMatrix[index][index2]= distance
-                distanceMatrix[index2][index]= distance
+                print("Distance between ",index," and ",index2,": ",distance, file=sys.stderr)
+                curr_mean = distanceMatrix[index][index2]
+                curr_mean= curr_mean * weightMatrix[index][index2]
+                curr_mean += distance
+                curr_mean /= (weightMatrix[index][index2] + 1)
+                print("Weighted mean of ",index," and ",index2," on trial",weightMatrix[index][index2]+1, "is: ",curr_mean, file=sys.stderr)
+                distanceMatrix[index][index2]= curr_mean
+                weightMatrix[index][index2] += 1
+
 
         
         fileName= "/matrices/sampleMatrix.txt"
@@ -140,7 +147,6 @@ def upload_file():
         matrixFile.write(userID+": \n")
         matrixFile.write(str(distanceMatrix))
 
-        global weightMatrix
         matrixFile.write("\n\n\nEvidence Weight Matrix: \n")
         matrixFile.write(str(weightMatrix))
 
@@ -178,6 +184,7 @@ def getImages():
         print('user: ', incomingMessage, file=sys.stderr)
 
         global distanceMatrix
+        global weightMatrix
         global urlDictionary
         returnIndex = []
 
@@ -185,15 +192,23 @@ def getImages():
         #   Choosing the images to put in the arena
         #
         imagesCount = 15
+        print("Len distance matrix: ", len(distanceMatrix))
         for i in range(0,len(distanceMatrix)):
             for j in range(0,len(distanceMatrix[i])):
-                if distanceMatrix[i][j]== -1:
+
+                #
+                #   choosing images from which we can learn the most information
+                #
+                if weightMatrix[i][j]== 0:
                     if len(returnIndex) == 0:
                         returnIndex.append(i)
                         imagesCount-=1
                     if j not in returnIndex and imagesCount>0:
                         returnIndex.append(j)
                         imagesCount-=1
+                
+                if imagesCount == 0:
+                    break
             if imagesCount<=0:
                 break
 
